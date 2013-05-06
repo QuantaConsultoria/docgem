@@ -1,0 +1,27 @@
+<html>
+	<head>
+		<title>Automatic Documentation Generate by DocGem</title>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<div id="index"></div>
+		<div id="charpters" ></div>
+		<script type="text/template" id="charpterTemplate">
+			<div class="text"></div>
+			<div class="sections"></div>			
+		</script>
+		<script type="text/template" id="sectionTemplate">
+			<div class="text"></div>
+			<div class="actionsText"></div>
+			<div class="backward" ></div><div class="forward" ></div>
+			<div class="actionsImages"></div>				
+		</script>
+		<script type="text/javascript" scr="data.js">
+			var drawCharpters = function(charpters) {
+				
+			}
+			drawCharpters(chapters);
+		</script>
+	</body>
+</html>
