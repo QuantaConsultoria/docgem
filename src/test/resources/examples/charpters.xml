@@ -1,0 +1,13 @@
+<?xml version='1.0'?>
+<charpters>
+	<charpter>
+		<id>Captulo 1</id>
+		<text>Aqui mostra com fazemos em teste</text>
+		<sections>
+			<section >
+				<id>Sessão 1</id>
+				<text>Esta eh uma sessao de teste</text>
+			</section>
+		</sections>
+	</charpter>
+</charpters>

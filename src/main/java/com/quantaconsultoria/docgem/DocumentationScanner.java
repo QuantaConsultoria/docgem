@@ -1,5 +1,6 @@
 package com.quantaconsultoria.docgem;
 
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -9,26 +10,35 @@ import org.reflections.scanners.TypeAnnotationsScanner;
 
 import com.quantaconsultoria.docgem.annotations.Charpter;
 import com.quantaconsultoria.docgem.annotations.Section;
+import com.quantaconsultoria.docgem.reflections.ReflectionsUtil;
 
 public class DocumentationScanner {
 
 	private Map<String, Charpter> classesMapped;
-	private Map<String, Section> methodsMapped;
+	private Map<Method, Section> methodsMapped;
+	private DocumentationConfiguration configuration;
 	
-	public DocumentationScanner() {
+	public DocumentationScanner(DocumentationConfiguration configuration) {
 		classesMapped = new HashMap<String, Charpter>();
-		methodsMapped = new HashMap<String, Section>();
+		methodsMapped = new HashMap<Method, Section>();
+		this.configuration = configuration;
 	}
 	
 	public void scan() {
 		
-		Reflections reflections = new Reflections("com.quantaconsultoria.docgem.test", new TypeAnnotationsScanner());
+		Reflections reflections = new Reflections(configuration.getPackagePrefix(), new TypeAnnotationsScanner());
 		Set<Class<?>> testedCharpters = reflections.getTypesAnnotatedWith(Charpter.class);
 		
 		for (final Class<?> testedCharpter : testedCharpters) {
 			Charpter charpter = testedCharpter.getAnnotation(
 					Charpter.class);
 			classesMapped.put(testedCharpter.getCanonicalName(), charpter);
+			for(Method method : testedCharpter.getMethods()) {
+				Section section = method.getAnnotation(Section.class); 
+				if (section!=null) {
+					methodsMapped.put(method, section);
+				}
+			}
 		}
 	}
 
@@ -40,13 +50,11 @@ public class DocumentationScanner {
 		return classesMapped.get(element.getClassName());
 	}
 
-	public boolean existSection(StackTraceElement element, Charpter charpter) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean existSection(Method method) {
+		return methodsMapped.containsKey(method);	
 	}
 
-	public Section getSection(StackTraceElement element, Charpter charpter) {
-		// TODO Auto-generated method stub
-		return null;
+	public Section getSection(Method method) {
+		return methodsMapped.get(method);
 	}
 }

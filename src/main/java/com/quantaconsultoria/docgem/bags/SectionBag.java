@@ -3,8 +3,10 @@ package com.quantaconsultoria.docgem.bags;
 import java.util.List;
 
 public class SectionBag {
+	
 	private String id;
-	private CharpterBag charpter;
+	private String text;
+	private transient CharpterBag charpter;
 	private List<ActionBag> actions;
 	
 	public String getId() {
@@ -24,6 +26,12 @@ public class SectionBag {
 	}
 	public void setActions(List<ActionBag> actions) {
 		this.actions = actions;
+	}
+	public String getText() {
+		return text;
+	}
+	public void setText(String text) {
+		this.text = text;
 	}
 	
 	

@@ -30,6 +30,7 @@ public class DocumentationTest {
 		driver.manage().window().setSize(new Dimension(800, 600));
 		DocumentationConfiguration config = new DocumentationConfiguration();
 		config.setTarget("target/site/docgem/");
+		config.setCharptersXmlPath(this.getClass().getResource("/examples/charpters.xml").getPath());
 		documentation = new Documentation(driver, config);
 	}
 	
@@ -38,6 +39,7 @@ public class DocumentationTest {
 		driver.close();
 		driver.quit();
 	}
+	
 	@Test
 	@Section(id="Sessão 1")
 	public void writeSection() {
@@ -52,6 +54,7 @@ public class DocumentationTest {
 	private void checkBuildFiles() {
 		checkWithExpected("/templates/index.html","target/site/docgem/index.html");
 		checkWithExpected("/templates/style.css","target/site/docgem/style.css");
+		checkWithExpected("/templates/docgem.js","target/site/docgem/docgem.js");
 		checkWithExpected("/examples/expected_json.js","target/site/docgem/data.js");
 	}
 

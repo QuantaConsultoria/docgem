@@ -2,9 +2,10 @@ package com.quantaconsultoria.docgem.bags;
 
 public class ActionBag {
 
-	private SectionBag section;
+	private transient SectionBag section;
 	private String text;
 	private String imageFile;
+	
 	public SectionBag getSection() {
 		return section;
 	}

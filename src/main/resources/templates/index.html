@@ -2,26 +2,31 @@
 	<head>
 		<title>Automatic Documentation Generate by DocGem</title>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+		<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
+		<script type="text/javascript" src="data.js"></script>
+		<script type="text/javascript" src="docgem.js"></script>
 		<link rel="stylesheet" href="style.css" />
 	</head>
 	<body>
-		<div id="index"></div>
+		<div>
+			<ul id="index"></ul>
+		</div>
 		<div id="charpters" ></div>
 		<script type="text/template" id="charpterTemplate">
-			<div class="text"></div>
-			<div class="sections"></div>			
+			<div class="charpter" data-id="${id}" >
+				<div class="text">${text}</div>
+				<div class="sections"></div>
+			</div>			
 		</script>
 		<script type="text/template" id="sectionTemplate">
-			<div class="text"></div>
-			<div class="actionsText"></div>
-			<div class="backward" ></div><div class="forward" ></div>
-			<div class="actionsImages"></div>				
-		</script>
-		<script type="text/javascript" scr="data.js">
-			var drawCharpters = function(charpters) {
-				
-			}
-			drawCharpters(chapters);
+			<div class="section"  data-id="${id}">
+				<div class="text">${text}</div>
+				<div>
+					<ul class="actionsText"></ul>
+				</div>
+				<div class="backward" ></div><div class="forward" ></div>
+				<div class="actionsImages"></div>
+			</div>				
 		</script>
 	</body>
 </html>
