@@ -31,6 +31,7 @@ public class DocumentationTest {
 		DocumentationConfiguration config = new DocumentationConfiguration();
 		config.setTarget("target/site/docgem/");
 		config.setChaptersXmlPath(this.getClass().getResource("/examples/chapters.xml").getPath());
+		config.setPackagePrefix("com.quantaconsultoria.docgem");
 		documentation = new Documentation(driver, config);
 	}
 	
