@@ -6,7 +6,7 @@ public class SectionBag {
 	
 	private String id;
 	private String text;
-	private transient CharpterBag charpter;
+	private transient ChapterBag chapter;
 	private List<ActionBag> actions;
 	
 	public String getId() {
@@ -15,11 +15,11 @@ public class SectionBag {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public CharpterBag getCharpter() {
-		return charpter;
+	public ChapterBag getChapter() {
+		return chapter;
 	}
-	public void setCharpter(CharpterBag charpter) {
-		this.charpter = charpter;
+	public void setChapter(ChapterBag chapter) {
+		this.chapter = chapter;
 	}
 	public List<ActionBag> getActions() {
 		return actions;

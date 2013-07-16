@@ -1,1 +1,1 @@
-var charpters = [{"id":"Captulo 1","text":"Aqui mostra com fazemos em teste","sections":[{"id":"Sessão 1","text":"Esta eh uma sessao de teste","actions":[{"text":"Passo 1","imageFile":"images/1.png"}]}]}];
+var chapters = [{"id":"Capitulo 1","text":"Aqui mostra com fazemos em teste","sections":[{"id":"Sessão 1","text":"Esta eh uma sessao de teste","actions":[{"text":"Passo 1","imageFile":"images/1.png"}]}]}];

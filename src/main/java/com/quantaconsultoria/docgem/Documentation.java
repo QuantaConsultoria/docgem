@@ -21,10 +21,10 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import com.google.gson.Gson;
-import com.quantaconsultoria.docgem.annotations.Charpter;
+import com.quantaconsultoria.docgem.annotations.Chapter;
 import com.quantaconsultoria.docgem.annotations.Section;
 import com.quantaconsultoria.docgem.bags.ActionBag;
-import com.quantaconsultoria.docgem.bags.CharpterBag;
+import com.quantaconsultoria.docgem.bags.ChapterBag;
 import com.quantaconsultoria.docgem.bags.SectionBag;
 import com.quantaconsultoria.docgem.reflections.ReflectionsUtil;
 import com.thoughtworks.xstream.XStream;
@@ -36,12 +36,12 @@ public class Documentation {
 	private long imageCount = 1;
 	private DocumentationScanner scanner;
 	
-	private Map<String, CharpterBag> charpters;
+	private Map<String, ChapterBag> chapters;
 	private Map<String, SectionBag> sections;
 	private Map<String, ActionBag> actions;
 	
 	protected Documentation() {
-		charpters = new HashMap<String, CharpterBag>();
+		chapters = new HashMap<String, ChapterBag>();
 		sections = new HashMap<String, SectionBag>();
 		actions = new HashMap<String, ActionBag>();
 	}
@@ -65,10 +65,10 @@ public class Documentation {
 
 	private void buildJson() {
 		try { 
-			List<CharpterBag> sortedCharpters = mergeWithXmlCharptersBag();
+			List<ChapterBag> sortedChapters = mergeWithXmlChaptersBag();
 			Gson gson = new Gson();			
-			String json = gson.toJson(sortedCharpters);
-			json = "var charpters = "+json+";";			
+			String json = gson.toJson(sortedChapters);
+			json = "var chapters = "+json+";";			
 			File data_json = new File(configuration.getTarget(),"data.js");			
 			FileUtils.writeStringToFile(data_json, json);
 		} catch (IOException e) {
@@ -76,39 +76,39 @@ public class Documentation {
 		}
 	}
 
-	private List<CharpterBag> mergeWithXmlCharptersBag() {
-		List<CharpterBag> finalCharpters = getCharptersFromXml();
+	private List<ChapterBag> mergeWithXmlChaptersBag() {
+		List<ChapterBag> finalChapters = getChaptersFromXml();
 		
-		Set<CharpterBag> notUsedCharpters = new HashSet<CharpterBag>();		
+		Set<ChapterBag> notUsedChapters = new HashSet<ChapterBag>();		
 		
-		for(CharpterBag xmlCharpter : finalCharpters) {
-			CharpterBag docCharpter = charpters.get(xmlCharpter.getId());
-			if (docCharpter!=null) {
-				for(SectionBag docSection : docCharpter.getSections()) {
-					SectionBag xmlSection = xmlCharpter.getSection(docSection.getId());
+		for(ChapterBag xmlChapter : finalChapters) {
+			ChapterBag docChapter = chapters.get(xmlChapter.getId());
+			if (docChapter!=null) {
+				for(SectionBag docSection : docChapter.getSections()) {
+					SectionBag xmlSection = xmlChapter.getSection(docSection.getId());
 					if (xmlSection!=null) {
 						xmlSection.setActions(docSection.getActions());
 					} else {
-						xmlCharpter.getSections().add(docSection);
+						xmlChapter.getSections().add(docSection);
 					}
 				}
 			} else {
-				notUsedCharpters.add(docCharpter);				
+				notUsedChapters.add(docChapter);				
 			}
 		}
-		finalCharpters.addAll(notUsedCharpters);
-		return finalCharpters;
+		finalChapters.addAll(notUsedChapters);
+		return finalChapters;
 	}
 
-	private List<CharpterBag> getCharptersFromXml() {
+	private List<ChapterBag> getChaptersFromXml() {
 		try {
 			XStream xstream = new XStream();
-			xstream.alias("charpters", ArrayList.class);
-			xstream.alias("charpter", CharpterBag.class);
+			xstream.alias("chapters", ArrayList.class);
+			xstream.alias("chapter", ChapterBag.class);
 			xstream.alias("section", SectionBag.class);
 			xstream.alias("action", ActionBag.class);
 			
-			List<CharpterBag> lista = (List<CharpterBag>)xstream.fromXML(new FileInputStream(new File(configuration.getCharptersXmlPath())));
+			List<ChapterBag> lista = (List<ChapterBag>)xstream.fromXML(new FileInputStream(new File(configuration.getChaptersXmlPath())));
 			return lista;
 			
 		} catch (FileNotFoundException e) {
@@ -143,8 +143,8 @@ public class Documentation {
 			action.setText(text);
 			action.setImageFile(destFilePath);
 			
-			CharpterBag charpter = this.getCurrentChapter();
-			SectionBag section = charpter.getSectionBag(this.getCurrentSection());
+			ChapterBag chapter = this.getCurrentChapter();
+			SectionBag section = chapter.getSectionBag(this.getCurrentSection());
 			section.getActions().add(action);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -155,7 +155,7 @@ public class Documentation {
 		try {
 			StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 			for (StackTraceElement element : stackTrace) {
-				if (scanner.existCharpter(element)) {
+				if (scanner.existChapter(element)) {
 					Method method = ReflectionsUtil.getMethod(element);
 					if (scanner.existSection(method)) {
 						return scanner.getSection(method);
@@ -168,21 +168,21 @@ public class Documentation {
 		}
 	}
 
-	private CharpterBag getCurrentChapter() {
+	private ChapterBag getCurrentChapter() {
 		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		for (StackTraceElement element : stackTrace) {
-			if (scanner.existCharpter(element)) {
-				Charpter charpter = scanner.getCharpter(element);
-				if (!charpters.containsKey(charpter.id())) {
-					CharpterBag bag = new CharpterBag();
-					bag.setId(charpter.id());
+			if (scanner.existChapter(element)) {
+				Chapter chapter = scanner.getChapter(element);
+				if (!chapters.containsKey(chapter.id())) {
+					ChapterBag bag = new ChapterBag();
+					bag.setId(chapter.id());
 					bag.setSections(new ArrayList<SectionBag>());
-					charpters.put(charpter.id(), bag);
+					chapters.put(chapter.id(), bag);
 				}
-				return charpters.get(charpter.id());
+				return chapters.get(chapter.id());
 			}
 		}
-		throw new RuntimeException("Don't exist a Charpter on stack");
+		throw new RuntimeException("Don't exist a Chapter on stack");
 	}
 	
 

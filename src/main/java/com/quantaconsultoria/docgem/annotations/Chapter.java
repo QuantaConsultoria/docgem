@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE})
-public @interface Charpter {
+public @interface Chapter {
 	String id();
 	Section[] sections() default {};
 }

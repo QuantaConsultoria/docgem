@@ -1,12 +1,11 @@
 package com.quantaconsultoria.docgem;
 
-import java.net.URL;
 
 public class DocumentationConfiguration {
 
 	private String target;
 	private String packagePrefix;
-	private String charptersXmlPath;
+	private String chaptersXmlPath;
 
 	public DocumentationConfiguration() {
 		target="target/docgem/";
@@ -28,11 +27,11 @@ public class DocumentationConfiguration {
 		this.packagePrefix = packagePrefix;
 	}
 
-	public void setCharptersXmlPath(String path) {
-		this.charptersXmlPath = path;		
+	public void setChaptersXmlPath(String path) {
+		this.chaptersXmlPath = path;		
 	}
 
-	public String getCharptersXmlPath() {
-		return charptersXmlPath;
+	public String getChaptersXmlPath() {
+		return chaptersXmlPath;
 	}
 }

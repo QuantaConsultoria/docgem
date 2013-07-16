@@ -8,18 +8,18 @@ import java.util.Set;
 import org.reflections.Reflections;
 import org.reflections.scanners.TypeAnnotationsScanner;
 
-import com.quantaconsultoria.docgem.annotations.Charpter;
+import com.quantaconsultoria.docgem.annotations.Chapter;
 import com.quantaconsultoria.docgem.annotations.Section;
 import com.quantaconsultoria.docgem.reflections.ReflectionsUtil;
 
 public class DocumentationScanner {
 
-	private Map<String, Charpter> classesMapped;
+	private Map<String, Chapter> classesMapped;
 	private Map<Method, Section> methodsMapped;
 	private DocumentationConfiguration configuration;
 	
 	public DocumentationScanner(DocumentationConfiguration configuration) {
-		classesMapped = new HashMap<String, Charpter>();
+		classesMapped = new HashMap<String, Chapter>();
 		methodsMapped = new HashMap<Method, Section>();
 		this.configuration = configuration;
 	}
@@ -27,13 +27,13 @@ public class DocumentationScanner {
 	public void scan() {
 		
 		Reflections reflections = new Reflections(configuration.getPackagePrefix(), new TypeAnnotationsScanner());
-		Set<Class<?>> testedCharpters = reflections.getTypesAnnotatedWith(Charpter.class);
+		Set<Class<?>> testedChapters = reflections.getTypesAnnotatedWith(Chapter.class);
 		
-		for (final Class<?> testedCharpter : testedCharpters) {
-			Charpter charpter = testedCharpter.getAnnotation(
-					Charpter.class);
-			classesMapped.put(testedCharpter.getCanonicalName(), charpter);
-			for(Method method : testedCharpter.getMethods()) {
+		for (final Class<?> testedChapter : testedChapters) {
+			Chapter chapter = testedChapter.getAnnotation(
+					Chapter.class);
+			classesMapped.put(testedChapter.getCanonicalName(), chapter);
+			for(Method method : testedChapter.getMethods()) {
 				Section section = method.getAnnotation(Section.class); 
 				if (section!=null) {
 					methodsMapped.put(method, section);
@@ -42,11 +42,11 @@ public class DocumentationScanner {
 		}
 	}
 
-	public boolean existCharpter(StackTraceElement element) {
+	public boolean existChapter(StackTraceElement element) {
 		return classesMapped.containsKey(element.getClassName());
 	}
 
-	public Charpter getCharpter(StackTraceElement element) {
+	public Chapter getChapter(StackTraceElement element) {
 		return classesMapped.get(element.getClassName());
 	}
 

@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.quantaconsultoria.docgem.annotations.Section;
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
-public class CharpterBag {
+public class ChapterBag {
 	
 	private String id;
 	private String text;
@@ -40,7 +38,7 @@ public class CharpterBag {
 			}
 		}
 		SectionBag section = new SectionBag();
-		section.setCharpter(this);
+		section.setChapter(this);
 		section.setId(currentSection.id());
 		section.setActions(new ArrayList<ActionBag>());
 		sections.add(section);

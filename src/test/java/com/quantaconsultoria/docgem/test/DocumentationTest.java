@@ -15,10 +15,10 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import com.quantaconsultoria.docgem.Documentation;
 import com.quantaconsultoria.docgem.DocumentationConfiguration;
-import com.quantaconsultoria.docgem.annotations.Charpter;
+import com.quantaconsultoria.docgem.annotations.Chapter;
 import com.quantaconsultoria.docgem.annotations.Section;
 
-@Charpter(id="Captulo 1")
+@Chapter(id="Capitulo 1")
 public class DocumentationTest {
 	
 	RemoteWebDriver driver;
@@ -30,7 +30,7 @@ public class DocumentationTest {
 		driver.manage().window().setSize(new Dimension(800, 600));
 		DocumentationConfiguration config = new DocumentationConfiguration();
 		config.setTarget("target/site/docgem/");
-		config.setCharptersXmlPath(this.getClass().getResource("/examples/charpters.xml").getPath());
+		config.setChaptersXmlPath(this.getClass().getResource("/examples/chapters.xml").getPath());
 		documentation = new Documentation(driver, config);
 	}
 	
