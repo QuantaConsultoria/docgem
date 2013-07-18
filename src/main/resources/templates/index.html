@@ -27,22 +27,25 @@
 				</div>
 			</div>			
 		</script>
+		
 		<script type="text/template" id="sectionTemplate">
 			<div class="section"  data-id="${id}">
 				<div class="text">${text}</div>
 				<div>
-				  <input type="button" value="<< voltar" /><input type="button" value="avancar >>" />
+				  <input type="button" value="<< voltar" class="back-action" data-id="${id}"/><input type="button" value="avancar >>" class="next-action" data-id="${id}"/>
 				</div>
 				<div>
 					<ul class="actions"></ul>
 				</div>				
 			</div>				
 		</script>
+		
 		<script type="text/template" id="actionTemplate">
-		  <li>
+		  <li data-index="${index}" class="action disabled">
 		    <span>${text}</span><br />
 		    <image src="${imageFile}" border=1 />
 		  </li>
 		</script>
+		
 	</body>
 </html>

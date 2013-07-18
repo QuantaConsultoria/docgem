@@ -33,3 +33,11 @@ div {
 	margin: 20px 0 30px;
 	border-bottom: 1px solid #eeeeee;
 }
+
+.active {
+	display: block;	
+}
+
+.disabled {
+	display: none;
+}
