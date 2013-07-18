@@ -45,8 +45,19 @@ public class DocumentationTest {
 	@Section(id="Sessão 1")
 	public void writeSection() {
 		driver.get("file://"+DocumentationTest.class.getResource("/examples/basci_structure.html").getPath());
-		WebElement name = driver.findElement(By.id("name"));
-		documentation.addAction("Passo 1", name);
+		
+		WebElement login = driver.findElement(By.id("login"));
+		login.sendKeys("Admin");
+		documentation.addAction("Informe o nome do usuário", login);
+		
+		WebElement senha = driver.findElement(By.id("password"));
+		senha.sendKeys("Admin");
+		documentation.addAction("Informe a senha do usuário", senha);
+		
+		
+		WebElement entrar = driver.findElement(By.id("submit"));
+		documentation.addAction("Click no botão Submit", entrar);
+		
 		documentation.makeIt();
 		
 		checkBuildFiles();

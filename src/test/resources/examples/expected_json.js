@@ -1,1 +1,1 @@
-var chapters = [{"id":"Capitulo 1","text":"Aqui mostra com fazemos em teste","sections":[{"id":"Sessão 1","text":"Esta eh uma sessao de teste","actions":[{"text":"Passo 1","imageFile":"images/1.png"}]}]}];
+var chapters = [{"id":"Capitulo 1","text":"Aqui mostra com fazemos em teste","sections":[{"id":"Sessão 1","text":"Esta eh uma sessao de teste","actions":[{"text":"Informe o nome do usuário","imageFile":"images/1.png"},{"text":"Informe a senha do usuário","imageFile":"images/2.png"},{"text":"Click no botão Submit","imageFile":"images/3.png"}]}]}];
