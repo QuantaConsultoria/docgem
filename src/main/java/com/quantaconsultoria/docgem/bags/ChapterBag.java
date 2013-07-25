@@ -32,17 +32,18 @@ public class ChapterBag {
 		this.text = text;
 	}
 	public SectionBag getSectionBag(Section currentSection) {
-		for(SectionBag section: sections) {
-			if (section.getId().equals(currentSection.id())) {
-				return section;
-			}
+		SectionBag section = this.getSection(currentSection.id());
+		
+		if (section!=null) {
+			return section;
+		} else {
+			section = new SectionBag();
+			section.setChapter(this);
+			section.setId(currentSection.id());
+			section.setActions(new ArrayList<ActionBag>());
+			sections.add(section);
+			return section;
 		}
-		SectionBag section = new SectionBag();
-		section.setChapter(this);
-		section.setId(currentSection.id());
-		section.setActions(new ArrayList<ActionBag>());
-		sections.add(section);
-		return section;
 	}
 	public SectionBag getSection(String id) {
 		for(SectionBag section: sections) {
