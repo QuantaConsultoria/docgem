@@ -6,6 +6,7 @@ public class DocumentationConfiguration {
 	private String target;
 	private String packagePrefix;
 	private String chaptersXmlPath;
+	private String actionsFile;
 
 	public DocumentationConfiguration() {
 		target="target/docgem/";
@@ -33,5 +34,13 @@ public class DocumentationConfiguration {
 
 	public String getChaptersXmlPath() {
 		return chaptersXmlPath;
+	}
+
+	public void setActionsFile(String actionsFile) {
+		this.actionsFile=actionsFile;
+	}
+	
+	public String getActionsFile() {
+		return actionsFile;
 	}
 }
