@@ -6,6 +6,16 @@ public class ActionBag {
 	private String text;
 	private String imageFile;
 	
+	public ActionBag(String text, String imageFile) {
+		super();
+		this.text = text;
+		this.imageFile = imageFile;
+	}
+	
+	public ActionBag() {
+		
+	}
+
 	public SectionBag getSection() {
 		return section;
 	}
