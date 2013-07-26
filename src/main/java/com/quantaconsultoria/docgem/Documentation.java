@@ -3,8 +3,10 @@ package com.quantaconsultoria.docgem;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.nio.channels.FileLock;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -17,8 +19,6 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
-
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import com.google.gson.Gson;
 import com.quantaconsultoria.docgem.annotations.Chapter;
@@ -33,17 +33,13 @@ public class Documentation {
 
 	private RemoteWebDriver driver;
 	private DocumentationConfiguration configuration;
-	private long imageCount = 1;
 	private DocumentationScanner scanner;
 	
+	//TODO verificar a necessidade deste mapa
 	private Map<String, ChapterBag> chapters;
-	private Map<String, SectionBag> sections;
-	private Map<String, ActionBag> actions;
 	
 	protected Documentation() {
 		chapters = new HashMap<String, ChapterBag>();
-		sections = new HashMap<String, SectionBag>();
-		actions = new HashMap<String, ActionBag>();
 	}
 	
 	public Documentation(RemoteWebDriver driver, DocumentationConfiguration config) {
@@ -52,10 +48,6 @@ public class Documentation {
 		scanner.scan();
 		this.driver = driver;
 		this.configuration = config;
-	}
-
-	public void writeText(String text) {
-		throw new NotImplementedException();
 	}
 
 	public void makeIt() {
@@ -76,10 +68,10 @@ public class Documentation {
 		}
 	}
 
-	private List<ChapterBag> mergeWithXmlChaptersBag() {
+	private List<ChapterBag> mergeWithXmlChaptersBag() throws IOException {
 		List<ChapterBag> finalChapters = getChaptersFromXml();
-		
 		Set<ChapterBag> notUsedChapters = new HashSet<ChapterBag>();		
+		chapters = getCapterFromActionsFile();
 		
 		for(ChapterBag xmlChapter : finalChapters) {
 			ChapterBag docChapter = chapters.get(xmlChapter.getId());
@@ -98,6 +90,57 @@ public class Documentation {
 		}
 		finalChapters.addAll(notUsedChapters);
 		return finalChapters;
+	}
+
+	private Map<String, ChapterBag> getCapterFromActionsFile() throws IOException {
+		Map<String, ChapterBag> chapters= new HashMap<>();
+		
+		List<String> lines = FileUtils.readLines(new File(configuration.getActionsFile()));
+		for(String line : lines) {
+			String[] parts = line.split("\\;");
+			
+			if(chapters.containsKey(parts[0])) {
+				ChapterBag chapterBag = chapters.get(parts[0]);
+				updateChapterInfo(chapterBag,parts);
+			} else {
+				ChapterBag chapterBag = createChapterFromStringArray(parts);
+				chapters.put(chapterBag.getId(), chapterBag);
+			}
+		}
+		
+		return chapters;
+	}
+
+	private void updateChapterInfo(ChapterBag chapterBag, String[] parts) {
+		if(chapterBag.getSections().contains(parts[1])){
+			chapterBag.getSection(parts[1]).getActions().add(createActionFomArrayInfo(parts));
+		} else {
+			chapterBag.getSections().add(createSectionFromArrayInfo(parts));
+		}
+	}
+
+	private SectionBag createSectionFromArrayInfo(String[] parts) {
+		SectionBag sectionBag = new SectionBag();
+		sectionBag.setId(parts[1]);
+		sectionBag.setActions(new ArrayList<ActionBag>());
+		sectionBag.getActions().add(createActionFomArrayInfo(parts));
+		
+		return sectionBag;
+	}
+
+	private ActionBag createActionFomArrayInfo(String[] parts) {
+		return new ActionBag(parts[2], parts[3]);
+	}
+
+	private ChapterBag createChapterFromStringArray(String[] parts) {
+		ChapterBag chapterBag = new ChapterBag();
+		chapterBag.setId(parts[0]);
+		chapterBag.setSections(new ArrayList<SectionBag>());
+		
+		SectionBag sectionBag = createSectionFromArrayInfo(parts);
+		chapterBag.getSections().add(sectionBag);
+		
+		return chapterBag;
 	}
 
 	private List<ChapterBag> getChaptersFromXml() {
@@ -134,23 +177,60 @@ public class Documentation {
 	public void addAction(String text, WebElement element) {
 		try {
 			File imageFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-			long imageIndex = imageCount++;
-			String destFilePath = "images/"+imageIndex+".png"; 
-			
-			File destFile = new File(configuration.getTarget(), destFilePath);
-			FileUtils.copyFile(imageFile, destFile);
+			String imageFinalFile = gravarImagem(imageFile);
 			ActionBag action = new ActionBag();
 			action.setText(text);
-			action.setImageFile(destFilePath);
+			action.setImageFile(imageFinalFile);
 			
 			ChapterBag chapter = this.getCurrentChapter();
 			SectionBag section = chapter.getSectionBag(this.getCurrentSection());
 			section.getActions().add(action);
+			
+			writeInfoAction(chapter, section, action);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 	
+	private String gravarImagem(File imagem) throws IOException {
+		
+		Long id =  (long) (Math.random()*1000000000);
+		
+		String destFilePath = "images/"+id+".png"; 
+		
+		File destFile = new File(configuration.getTarget(), destFilePath);
+		
+		if (!destFile.exists()) {
+			FileUtils.copyFile(imagem, destFile);
+			return destFilePath;
+		} else {
+			return gravarImagem(imagem);
+		}
+		
+	}
+	
+	private void writeInfoAction(ChapterBag chapter, SectionBag section, ActionBag action) throws IOException {
+		File file = new File(configuration.getActionsFile());
+		if (!file.exists()) {
+			file.createNewFile();
+		}
+		FileLock lock = null;
+		FileOutputStream out = null;
+		try {
+			out = new FileOutputStream(file,true);
+			lock = out.getChannel().lock();
+			
+			String line = String.format("%s;%s;%s;%s\n", chapter.getId(),section.getId(),action.getText(),action.getImageFile());
+			
+			out.write(line.getBytes());
+			
+		} finally {
+			lock.release();
+			out.close();
+		}		
+		
+	}
+
 	private Section getCurrentSection() {
 		try {
 			StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
