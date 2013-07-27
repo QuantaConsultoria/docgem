@@ -35,11 +35,8 @@ public class Documentation {
 	private DocumentationConfiguration configuration;
 	private DocumentationScanner scanner;
 	
-	//TODO verificar a necessidade deste mapa
-	private Map<String, ChapterBag> chapters;
 	
 	protected Documentation() {
-		chapters = new HashMap<String, ChapterBag>();
 	}
 	
 	public Documentation(RemoteWebDriver driver, DocumentationConfiguration config) {
@@ -71,7 +68,7 @@ public class Documentation {
 	private List<ChapterBag> mergeWithXmlChaptersBag() throws IOException {
 		List<ChapterBag> finalChapters = getChaptersFromXml();
 		Set<ChapterBag> notUsedChapters = new HashSet<ChapterBag>();		
-		chapters = getCapterFromActionsFile();
+		Map<String, ChapterBag> chapters = getCapterFromActionsFile();
 		
 		for(ChapterBag xmlChapter : finalChapters) {
 			ChapterBag docChapter = chapters.get(xmlChapter.getId());
@@ -182,11 +179,7 @@ public class Documentation {
 			action.setText(text);
 			action.setImageFile(imageFinalFile);
 			
-			ChapterBag chapter = this.getCurrentChapter();
-			SectionBag section = chapter.getSectionBag(this.getCurrentSection());
-			section.getActions().add(action);
-			
-			writeInfoAction(chapter, section, action);
+			writeInfoAction(this.getCurrentChapter(), this.getCurrentSection(), action);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -209,7 +202,7 @@ public class Documentation {
 		
 	}
 	
-	private void writeInfoAction(ChapterBag chapter, SectionBag section, ActionBag action) throws IOException {
+	private void writeInfoAction(Chapter chapter, Section section, ActionBag action) throws IOException {
 		File file = new File(configuration.getActionsFile());
 		if (!file.exists()) {
 			file.createNewFile();
@@ -220,7 +213,7 @@ public class Documentation {
 			out = new FileOutputStream(file,true);
 			lock = out.getChannel().lock();
 			
-			String line = String.format("%s;%s;%s;%s\n", chapter.getId(),section.getId(),action.getText(),action.getImageFile());
+			String line = String.format("%s;%s;%s;%s\n", chapter.id(),section.id(),action.getText(),action.getImageFile());
 			
 			out.write(line.getBytes());
 			
@@ -248,22 +241,14 @@ public class Documentation {
 		}
 	}
 
-	private ChapterBag getCurrentChapter() {
+	private Chapter getCurrentChapter() {
 		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		for (StackTraceElement element : stackTrace) {
 			if (scanner.existChapter(element)) {
-				Chapter chapter = scanner.getChapter(element);
-				if (!chapters.containsKey(chapter.id())) {
-					ChapterBag bag = new ChapterBag();
-					bag.setId(chapter.id());
-					bag.setSections(new ArrayList<SectionBag>());
-					chapters.put(chapter.id(), bag);
-				}
-				return chapters.get(chapter.id());
+				return scanner.getChapter(element);
 			}
 		}
 		throw new RuntimeException("Don't exist a Chapter on stack");
 	}
-	
 
 }
