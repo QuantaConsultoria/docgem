@@ -10,7 +10,6 @@ import org.reflections.scanners.TypeAnnotationsScanner;
 
 import com.quantaconsultoria.docgem.annotations.Chapter;
 import com.quantaconsultoria.docgem.annotations.Section;
-import com.quantaconsultoria.docgem.reflections.ReflectionsUtil;
 
 public class DocumentationScanner {
 
