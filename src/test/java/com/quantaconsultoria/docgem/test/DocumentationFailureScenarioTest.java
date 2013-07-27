@@ -16,7 +16,7 @@ import com.quantaconsultoria.docgem.DocumentationConfiguration;
 import com.quantaconsultoria.docgem.annotations.Chapter;
 
 @Chapter(id = "Capitulo falha")
-public class DocumentationFailureScenario {
+public class DocumentationFailureScenarioTest {
 
 	private RemoteWebDriver driver;
 	private Documentation documentation;
