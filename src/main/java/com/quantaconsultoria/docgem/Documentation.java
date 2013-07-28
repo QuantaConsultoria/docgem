@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.nio.channels.FileLock;
 import java.util.ArrayList;
@@ -158,14 +159,14 @@ public class Documentation {
 
 	private void copyResources() {
 		File targetDir = new File(configuration.getTarget());
-		File index = new File(this.getClass().getResource("/templates/index.html").getPath());
-		File style = new File(this.getClass().getResource("/templates/style.css").getPath());
-		File docgem_js = new File(this.getClass().getResource("/templates/docgem.js").getPath());
+		InputStream index = this.getClass().getResourceAsStream("/templates/index.html");
+		InputStream style = this.getClass().getResourceAsStream("/templates/style.css");
+		InputStream docgem_js = this.getClass().getResourceAsStream("/templates/docgem.js");
 		
 		try {
-			FileUtils.copyFileToDirectory(index, targetDir);
-			FileUtils.copyFileToDirectory(style, targetDir);
-			FileUtils.copyFileToDirectory(docgem_js, targetDir);
+			FileUtils.copyInputStreamToFile(index, new File(targetDir,"index.html"));
+			FileUtils.copyInputStreamToFile(style, new File(targetDir, "style.css"));
+			FileUtils.copyInputStreamToFile(docgem_js, new File(targetDir, "docgem.js"));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
