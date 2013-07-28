@@ -110,8 +110,9 @@ public class Documentation {
 	}
 
 	private void updateChapterInfo(ChapterBag chapterBag, String[] parts) {
-		if(chapterBag.getSections().contains(parts[1])){
-			chapterBag.getSection(parts[1]).getActions().add(createActionFomArrayInfo(parts));
+		SectionBag sectionBag = chapterBag.getSection(parts[1]); 
+		if(sectionBag != null){
+			sectionBag.getActions().add(createActionFomArrayInfo(parts));
 		} else {
 			chapterBag.getSections().add(createSectionFromArrayInfo(parts));
 		}
