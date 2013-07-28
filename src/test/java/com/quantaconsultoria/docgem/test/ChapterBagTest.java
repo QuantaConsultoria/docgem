@@ -18,6 +18,7 @@ public class ChapterBagTest {
 		bag.setSections(new ArrayList<SectionBag>());
 		SectionBag sectionBag = new SectionBag();
 		sectionBag.setId("Section test");
+		bag.getSections().add(sectionBag);
 		
 		Section section = this.getClass().getMethod("generateSection", null).getAnnotation(Section.class);
 		Section newSection = this.getClass().getMethod("generateNewSection", null).getAnnotation(Section.class);
