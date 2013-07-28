@@ -67,6 +67,8 @@ public class DocumentationTest {
 		Assert.assertEquals("Sessão 2",parts[1]);
 		Assert.assertEquals("Informe o nome do usuário",parts[2]);
 		Assert.assertNotNull(parts[3]);
+		
+		documentation.makeIt();
 	}
 
 	@Test
