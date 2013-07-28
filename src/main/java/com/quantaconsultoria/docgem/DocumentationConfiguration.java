@@ -1,6 +1,7 @@
 package com.quantaconsultoria.docgem;
 
 
+
 public class DocumentationConfiguration {
 
 	private String target;
@@ -12,6 +13,17 @@ public class DocumentationConfiguration {
 		target="target/docgem/";
 	}
 	
+	public DocumentationConfiguration(String target, String packagePrefix,
+			String chaptersXmlPath, String actionsFile) {
+		super();
+		this.target = target;
+		this.packagePrefix = packagePrefix;
+		this.chaptersXmlPath = chaptersXmlPath;
+		this.actionsFile = actionsFile;
+	}
+
+
+
 	public void setTarget(String target) {
 		this.target = target;
 	}
