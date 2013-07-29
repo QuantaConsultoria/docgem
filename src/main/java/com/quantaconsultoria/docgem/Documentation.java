@@ -48,7 +48,7 @@ public class Documentation {
 		this.configuration = config;
 	}
 
-	public void makeIt() {
+	public void makeIt() throws IOException {
 		copyResources();
 		buildJson();
 	}
@@ -158,18 +158,26 @@ public class Documentation {
 		}
 	}
 
-	private void copyResources() {
+	private void copyResources() throws IOException {
 		File targetDir = new File(configuration.getTarget());
-		InputStream index = this.getClass().getResourceAsStream("/templates/index.html");
-		InputStream style = this.getClass().getResourceAsStream("/templates/style.css");
-		InputStream docgem_js = this.getClass().getResourceAsStream("/templates/docgem.js");
+		InputStream index = null;
+		InputStream style = null;
+		InputStream docgem_js = null;
 		
 		try {
+			index = this.getClass().getResourceAsStream("/templates/index.html");
+			style = this.getClass().getResourceAsStream("/templates/style.css");
+			docgem_js = this.getClass().getResourceAsStream("/templates/docgem.js");
+			
 			FileUtils.copyInputStreamToFile(index, new File(targetDir,"index.html"));
 			FileUtils.copyInputStreamToFile(style, new File(targetDir, "style.css"));
 			FileUtils.copyInputStreamToFile(docgem_js, new File(targetDir, "docgem.js"));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
+		} finally {
+			close(index);
+			close(style);
+			close(docgem_js);
 		}
 	}
 
@@ -215,15 +223,35 @@ public class Documentation {
 			out = new FileOutputStream(file,true);
 			lock = out.getChannel().lock();
 			
-			String line = String.format("%s;%s;%s;%s\n", chapter.id(),section.id(),action.getText(),action.getImageFile());
+			String line = String.format("%s;%s;%s;%s%n", chapter.id(),section.id(),action.getText(),action.getImageFile());
 			
 			out.write(line.getBytes());
 			
 		} finally {
-			lock.release();
+			close(lock);
+			close(out);
 			out.close();
 		}		
 		
+	}
+
+	private void close(FileOutputStream out) throws IOException {
+		if(out != null) {
+			out.close();
+		}
+	}
+
+	private void close(FileLock lock) throws IOException {
+		if(lock != null) {
+			lock.release();
+			lock.close();
+		}
+	}
+	
+	private void close(InputStream stream) throws IOException {
+		if(stream != null) {
+			stream.close();
+		}
 	}
 
 	private Section getCurrentSection() {
