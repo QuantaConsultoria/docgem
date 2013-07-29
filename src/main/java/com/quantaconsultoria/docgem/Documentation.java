@@ -221,8 +221,8 @@ public class Documentation {
 	
 	private void writeInfoAction(Chapter chapter, Section section, ActionBag action) throws IOException {
 		File file = new File(configuration.getActionsFile());
-		if (!file.exists()) {
-			file.createNewFile();
+		if (!file.exists() && !file.createNewFile()) {
+			throw new RuntimeException("Can't create the actions file.");
 		}
 		FileLock lock = null;
 		FileOutputStream out = null;
