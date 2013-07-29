@@ -8,21 +8,22 @@ public class DocumentationConfiguration {
 	private String packagePrefix;
 	private String chaptersXmlPath;
 	private String actionsFile;
+	private String encoding;
 
 	public DocumentationConfiguration() {
-		target="target/docgem/";
+		target = "target/docgem/";
+		encoding = "UTF8";
 	}
-	
+
 	public DocumentationConfiguration(String target, String packagePrefix,
-			String chaptersXmlPath, String actionsFile) {
+			String chaptersXmlPath, String actionsFile, String encoding) {
 		super();
 		this.target = target;
 		this.packagePrefix = packagePrefix;
 		this.chaptersXmlPath = chaptersXmlPath;
 		this.actionsFile = actionsFile;
+		this.encoding = encoding;
 	}
-
-
 
 	public void setTarget(String target) {
 		this.target = target;
@@ -54,5 +55,13 @@ public class DocumentationConfiguration {
 	
 	public String getActionsFile() {
 		return actionsFile;
+	}
+
+	public String getEncoding() {
+		return encoding;
+	}
+
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
 	}
 }
