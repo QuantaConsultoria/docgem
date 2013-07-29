@@ -10,10 +10,8 @@ import java.lang.reflect.Method;
 import java.nio.channels.FileLock;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
