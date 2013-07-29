@@ -237,7 +237,6 @@ public class Documentation {
 		} finally {
 			close(lock);
 			close(out);
-			out.close();
 		}		
 		
 	}
