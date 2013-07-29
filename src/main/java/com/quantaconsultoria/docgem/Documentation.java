@@ -68,12 +68,12 @@ public class Documentation {
 
 	private List<ChapterBag> mergeWithXmlChaptersBag() throws IOException {
 		List<ChapterBag> finalChapters = getChaptersFromXml();
-		Set<ChapterBag> notUsedChapters = new HashSet<ChapterBag>();		
 		Map<String, ChapterBag> chapters = getCapterFromActionsFile();
 		
 		for(ChapterBag xmlChapter : finalChapters) {
 			ChapterBag docChapter = chapters.get(xmlChapter.getId());
 			if (docChapter!=null) {
+				chapters.remove(xmlChapter.getId());
 				for(SectionBag docSection : docChapter.getSections()) {
 					SectionBag xmlSection = xmlChapter.getSection(docSection.getId());
 					if (xmlSection!=null) {
@@ -82,11 +82,9 @@ public class Documentation {
 						xmlChapter.getSections().add(docSection);
 					}
 				}
-			} else {
-				notUsedChapters.add(docChapter);				
-			}
+			} 
 		}
-		finalChapters.addAll(notUsedChapters);
+		finalChapters.addAll(chapters.values());
 		return finalChapters;
 	}
 
@@ -142,7 +140,8 @@ public class Documentation {
 		return chapterBag;
 	}
 
-	private List<ChapterBag> getChaptersFromXml() {
+	private List<ChapterBag> getChaptersFromXml() throws IOException {
+		InputStream xmlChapters = null;
 		try {
 			XStream xstream = new XStream();
 			xstream.alias("chapters", ArrayList.class);
@@ -150,11 +149,14 @@ public class Documentation {
 			xstream.alias("section", SectionBag.class);
 			xstream.alias("action", ActionBag.class);
 			
-			List<ChapterBag> lista = (List<ChapterBag>)xstream.fromXML(new FileInputStream(new File(configuration.getChaptersXmlPath())));
+			xmlChapters = new FileInputStream(new File(configuration.getChaptersXmlPath()));
+			List<ChapterBag> lista = (List<ChapterBag>)xstream.fromXML(xmlChapters);
 			return lista;
 			
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException(e);
+		} finally {
+			close(xmlChapters);
 		}
 	}
 
@@ -183,7 +185,14 @@ public class Documentation {
 
 	public void addAction(String text, WebElement element) {
 		try {
-			File imageFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+			File imageFile = null;
+			
+			if(driver instanceof TakesScreenshot) {
+				imageFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+			} else {
+				throw new RuntimeException("Can't take a screenshot.");
+			}
+			
 			String imageFinalFile = gravarImagem(imageFile);
 			ActionBag action = new ActionBag();
 			action.setText(text);
@@ -225,7 +234,7 @@ public class Documentation {
 			
 			String line = String.format("%s;%s;%s;%s%n", chapter.id(),section.id(),action.getText(),action.getImageFile());
 			
-			out.write(line.getBytes());
+			out.write(line.getBytes(configuration.getEncoding()));
 			
 		} finally {
 			close(lock);
