@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
@@ -33,6 +35,8 @@ public class Documentation {
 	private RemoteWebDriver driver;
 	private DocumentationConfiguration configuration;
 	private DocumentationScanner scanner;
+	
+	private static final Logger LOG = Logger.getLogger(Documentation.class.getName());  
 	
 	
 	protected Documentation() {
@@ -158,7 +162,7 @@ public class Documentation {
 		}
 	}
 
-	private void copyResources() throws IOException {
+	private void copyResources() {
 		File targetDir = new File(configuration.getTarget());
 		InputStream index = null;
 		InputStream style = null;
@@ -254,9 +258,13 @@ public class Documentation {
 		}
 	}
 	
-	private void close(InputStream stream) throws IOException {
-		if(stream != null) {
-			stream.close();
+	private void close(InputStream stream) {
+		try {
+			if(stream != null) {
+				stream.close();
+			}
+		} catch (IOException e) {
+			LOG.log(Level.WARNING, "Can't close the InputStream.");
 		}
 	}
 
