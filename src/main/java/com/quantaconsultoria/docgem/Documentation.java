@@ -195,6 +195,7 @@ public class Documentation {
 				throw new RuntimeException("Can't take a screenshot.");
 			}
 			
+			ImageUtil.circulateElement(imageFile, element);
 			String imageFinalFile = gravarImagem(imageFile);
 			ActionBag action = new ActionBag();
 			action.setText(text);
@@ -225,12 +226,14 @@ public class Documentation {
 	
 	private void writeInfoAction(Chapter chapter, Section section, ActionBag action) throws IOException {
 		File file = new File(configuration.getActionsFile());
+		
 		if (!file.exists() && !file.createNewFile()) {
 			throw new RuntimeException("Can't create the actions file.");
 		}
 		FileLock lock = null;
 		FileOutputStream out = null;
 		try {
+			
 			out = new FileOutputStream(file,true);
 			lock = out.getChannel().lock();
 			
