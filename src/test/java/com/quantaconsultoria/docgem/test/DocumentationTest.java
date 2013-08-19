@@ -95,12 +95,12 @@ public class DocumentationTest {
 	}
 
 	private void checkBuildFiles() throws IOException {
-		checkWithExpected("/templates/index.html",
-				"target/site/docgem/index.html");
-		checkWithExpected("/templates/style.css",
-				"target/site/docgem/style.css");
-		checkWithExpected("/templates/docgem.js",
-				"target/site/docgem/docgem.js");
+		checkWithExpected("/templates/index.html", "target/site/docgem/index.html");
+		checkWithExpected("/templates/style.css", "target/site/docgem/style.css");
+		checkWithExpected("/templates/docgem.js", "target/site/docgem/docgem.js");
+		checkWithExpected("/templates/jquery.min.js", "target/site/docgem/jquery.min.js");
+		checkWithExpected("/templates/jquery.tmpl.js", "target/site/docgem/jquery.tmpl.js");
+		
 		checkJsonFile();
 	}
 

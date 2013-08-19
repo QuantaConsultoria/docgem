@@ -167,21 +167,31 @@ public class Documentation {
 		InputStream index = null;
 		InputStream style = null;
 		InputStream docgem_js = null;
+		InputStream jquery = null;
+		InputStream jqueryTmpl = null;
 		
 		try {
 			index = this.getClass().getResourceAsStream("/templates/index.html");
 			style = this.getClass().getResourceAsStream("/templates/style.css");
 			docgem_js = this.getClass().getResourceAsStream("/templates/docgem.js");
+			jquery = this.getClass().getResourceAsStream("/templates/jquery.min.js");
+			jqueryTmpl = this.getClass().getResourceAsStream("/templates/jquery.tmpl.js");
+			
 			
 			FileUtils.copyInputStreamToFile(index, new File(targetDir,"index.html"));
 			FileUtils.copyInputStreamToFile(style, new File(targetDir, "style.css"));
 			FileUtils.copyInputStreamToFile(docgem_js, new File(targetDir, "docgem.js"));
+			FileUtils.copyInputStreamToFile(jquery, new File(targetDir, "jquery.min.js"));
+			FileUtils.copyInputStreamToFile(jqueryTmpl, new File(targetDir, "jquery.tmpl.js"));
+			FileUtils.copyDirectoryToDirectory(new File(this.getClass().getResource("/templates/bootstrap/").getPath()), targetDir);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		} finally {
 			close(index);
 			close(style);
 			close(docgem_js);
+			close(jquery);
+			close(jqueryTmpl);
 		}
 	}
 

@@ -7,9 +7,22 @@ var drawChapters = function(chapters) {
 	for (var i in chapters) {
 		var chapter = chapters[i];
 		$.tmpl( $("#chapterTemplate"), chapter ).appendTo( "#chapters" );
-		$("#index").append("<li>"+chapter.id+"</li>");
+		var index = $("#index");
+		var chapterConteiner = $("<li></li>").addClass('dropdown');
+		var chapterMenu = $("<a></a>").attr("href", '#').text(chapter.id).addClass('dropdown-toggle');
+		var groupSections = $("<ul></ul>").addClass('dropdown-menu');
+
+		//$("#index").append("<a tabindex='-1' href='#' class='dropdown-toggle'>"+chapter.id+"</a>");
+		//$("#index").append("<li><a tabindex='-1' href='#' class='dropdown-toggle'>"+chapter.id+"</a></li>");
+		//$("#index").append("<li class='list-group-item'>"+chapter.id+"</li>");
+
+
 		for(var j in chapter.sections) {
 			var section = chapter.sections[j];
+			var li = $("<li></li>");
+			var sectionMenu = $("<a></a>").attr("href", section.id).text(section.id);
+			li.append(sectionMenu);
+			groupSections.append(li);
 			$(".chapter[data-id='"+chapter.id+"']" ).find(".sections").append($.tmpl( $("#sectionTemplate"), section ));
 			for(var k in section.actions) {
 				var action = section.actions[k];
@@ -17,6 +30,9 @@ var drawChapters = function(chapters) {
 				$(".section[data-id='"+section.id+"']" ).find(".actions").append($.tmpl( $("#actionTemplate"), action));
 			}
 		}
+		chapterMenu.append(groupSections);
+		chapterConteiner.append(chapterMenu);
+		index.append(chapterConteiner);
 		$(".action[data-index='0']").removeClass("disabled");
 		$(".action[data-index='0']").addClass("active");
 	}
