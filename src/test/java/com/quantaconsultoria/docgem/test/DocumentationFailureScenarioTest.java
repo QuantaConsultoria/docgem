@@ -49,12 +49,17 @@ public class DocumentationFailureScenarioTest {
 		exception.expect(RuntimeException.class);
 	    exception.expectMessage("Don't exist a Section on stack");
 	    
+		WebElement login = action();
+		documentation.addAction("Informe o nome do usuário", login);
+	}
+
+	private WebElement action() {
 		driver.get("file://"
 				+ DocumentationTest.class.getResource(
 						"/examples/basci_structure.html").getPath());
 
 		WebElement login = driver.findElement(By.id("login"));
 		login.sendKeys("Admin");
-		documentation.addAction("Informe o nome do usuário", login);
+		return login;
 	}
 }
