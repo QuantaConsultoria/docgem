@@ -11,6 +11,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
     
 
     <script type="text/javascript" src="jquery.min.js"></script>
@@ -70,7 +71,7 @@
       </div>
 
       <!-- Main component for a primary marketing message or call to action -->
-      <div class="jumbotron row marketing" style="padding: 50px 10px;">
+      <div class="jumbotron row marketing" style="padding: 50px 10px; min-width: 1000px;">
 
         <div class="col-lg-2 topbar" data-dropdown="dropdown">      
           <ul class="nav" id="index"></ul>
@@ -111,10 +112,10 @@
   </script>
   
   <script type="text/template" id="actionTemplate">
-    <li data-index="${index}" class="action disabled">
+    <div data-index="${index}" class="action disabled">
       <span>${text}</span><br />
       <image src="${imageFile}" border=1 />
-    </li>
+    </div>
   </script>
 
   </body>
