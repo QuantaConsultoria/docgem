@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.mockito.Mockito;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
@@ -51,6 +52,18 @@ public class DocumentationFailureScenarioTest {
 	    
 		WebElement login = action();
 		documentation.addAction("Informe o nome do usuário", login);
+	}
+	
+	@Test
+	public void mustThrowExceptionWhenScreenshotFail() {
+		exception.expect(RuntimeException.class);
+	    exception.expectMessage("Can't take a screenshot.");
+	    
+	    RemoteWebDriver driverMock = Mockito.mock(RemoteWebDriver.class, Mockito.withSettings());
+	    Documentation documentation2 = new Documentation(driverMock, new DocumentationConfiguration());
+	    
+		WebElement login = action();
+		documentation2.addAction("Informe o nome do usuário", login);
 	}
 
 	private WebElement action() {
