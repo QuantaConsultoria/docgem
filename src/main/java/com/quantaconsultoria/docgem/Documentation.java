@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -26,8 +25,6 @@ public class Documentation {
 	private DocumentationConfiguration configuration;
 	private DocumentationScanner scanner;
 	private FileManager fileManager;
-	
-	private static final Logger LOG = Logger.getLogger(Documentation.class.getName());  
 	
 	
 	protected Documentation() {
