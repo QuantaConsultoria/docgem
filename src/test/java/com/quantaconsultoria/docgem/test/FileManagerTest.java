@@ -30,7 +30,7 @@ public class FileManagerTest {
 	@Before
 	public void startTestStuffs() throws IOException {
 		PowerMockito.mockStatic(FileUtils.class);
-		PowerMockito.doThrow(new RuntimeException("Can't copy resources files.")).when(FileUtils.class);
+		PowerMockito.doThrow(new IOException("Can't copy resources files.")).when(FileUtils.class);
 		FileUtils.copyInputStreamToFile(Matchers.any(InputStream.class), Matchers.any(File.class));
 	}
 	
