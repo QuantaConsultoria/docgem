@@ -73,7 +73,7 @@ public class FileManager {
 			FileUtils.copyInputStreamToFile(jqueryTmpl, new File(targetDir, "jquery.tmpl.js"));
 			FileUtils.copyDirectoryToDirectory(new File(this.getClass().getResource("/templates/bootstrap/").getPath()), targetDir);
 		} catch (IOException e) {
-			throw new RuntimeException(e);
+			throw new RuntimeException("Can't copy resources files.",e);
 		} finally {
 			close(index);
 			close(style);
