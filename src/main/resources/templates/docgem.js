@@ -12,11 +12,6 @@ var drawChapters = function(chapters) {
 		var chapterMenu = $("<a></a>").attr("href", '#').text(chapter.id).addClass('dropdown-toggle');
 		var groupSections = $("<ul></ul>").addClass('dropdown-menu');
 
-		//$("#index").append("<a tabindex='-1' href='#' class='dropdown-toggle'>"+chapter.id+"</a>");
-		//$("#index").append("<li><a tabindex='-1' href='#' class='dropdown-toggle'>"+chapter.id+"</a></li>");
-		//$("#index").append("<li class='list-group-item'>"+chapter.id+"</li>");
-
-
 		for(var j in chapter.sections) {
 			var section = chapter.sections[j];
 			var li = $("<li></li>");
