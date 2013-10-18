@@ -1,122 +1,118 @@
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		
+		<title>Navbar Template for Bootstrap</title>
+		
+		<!-- Bootstrap core CSS -->
+		<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+		<link href="style.css" rel="stylesheet">
+		
+		
+		<script type="text/javascript" src="jquery.min.js"></script>
+		<script type="text/javascript" src="jquery.tmpl.js"></script>
+		<script type="text/javascript" src="data.js"></script>
+		<script type="text/javascript" src="docgem.js"></script>
+		
+		<style>
+			ul.nav li.dropdown:hover ul.dropdown-menu{
+				display: block;    
+			}
+			
+			a.menu:after, .dropdown-toggle:after {
+				content: none;
+			}
+		</style>
+	</head>
 
-    <title>Navbar Template for Bootstrap</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link href="style.css" rel="stylesheet">
-    
-
-    <script type="text/javascript" src="jquery.min.js"></script>
-    <script type="text/javascript" src="jquery.tmpl.js"></script>
-    <script type="text/javascript" src="data.js"></script>
-    <script type="text/javascript" src="docgem.js"></script>
-
-    <style>
-      ul.nav li.dropdown:hover ul.dropdown-menu{
-          display: block;    
-      }
-
-      a.menu:after, .dropdown-toggle:after {
-        content: none;
-      }
-    </style>
-  </head>
-
-  <body>
-
-    <div class="container">
-
-      <!-- Static navbar -->
-      <div class="navbar">
-        <div class="container">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Project name</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">Action</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else here</a></li>
-                  <li class="divider"></li>
-                  <li class="nav-header">Nav header</li>
-                  <li><a href="#">Separated link</a></li>
-                  <li><a href="#">One more separated link</a></li>
-                </ul>
-              </li>
-            </ul>
-            <ul class="nav navbar-nav pull-right">
-              <li class="active"><a href="/examples/navbar/">Default</a></li>
-              <li><a href="/examples/navbar-static-top/">Static top</a></li>
-              <li><a href="/examples/navbar-fixed-top/">Fixed top</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
-
-      <!-- Main component for a primary marketing message or call to action -->
-      <div class="jumbotron row marketing" style="padding: 50px 10px; min-width: 1000px;">
-
-        <div class="col-lg-2 topbar" data-dropdown="dropdown">      
-          <ul class="nav" id="index"></ul>
-        </div>
-
-        <div class="col-lg-6">
-          <div id="chapters" ></div>
-        </div>
-      </div>
-
-    </div>
-
-  </div> <!-- /container -->
-
-  <script type="text/template" id="chapterTemplate">
-    <div class="chapter" data-id="${id}" >
-      <h3>${id}</h3>
-      <p class="text">${text}</p>
-      <h4>Sessões</h4>
-      <div class="sections">
-      </div>
-    </div>      
-  </script>
-    
-  <script type="text/template" id="sectionTemplate">
-    <div class="section"  data-id="${id}">
-      <div class="text">${text}</div>
-
-      <ul class="pager">
-        <li class="previous"><input type="button" value="&larr; Voltar" style="font-size: 15px;" class="back-action" data-id="${id}" disabled="disabled"/></li>
-        <li class="next"><input type="button" value="Avancar &rarr;" style="font-size: 15px;" class="next-action" data-id="${id}"/></li>
-      </ul>
-     
-      <div>
-        <ul class="actions nav"></ul>
-      </div>        
-    </div>        
-  </script>
-  
-  <script type="text/template" id="actionTemplate">
-    <div data-index="${index}" class="action disabled">
-      <span>${text}</span><br />
-      <image src="${imageFile}" border=1 />
-    </div>
-  </script>
-
-  </body>
+	<body>
+		<div class="container">
+			<!-- Static navbar -->
+			<div class="navbar">
+				<div class="container">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">Project name</a>
+					<div class="nav-collapse collapse">
+						<ul class="nav navbar-nav">
+							<li class="active"><a href="#">Home</a></li>
+							<li><a href="#about">About</a></li>
+							<li><a href="#contact">Contact</a></li>
+							<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="#">Action</a></li>
+								<li><a href="#">Another action</a></li>
+								<li><a href="#">Something else here</a></li>
+								<li class="divider"></li>
+								<li class="nav-header">Nav header</li>
+								<li><a href="#">Separated link</a></li>
+								<li><a href="#">One more separated link</a></li>
+							</ul>
+							</li>
+						</ul>
+						<ul class="nav navbar-nav pull-right">
+							<li class="active"><a href="/examples/navbar/">Default</a></li>
+							<li><a href="/examples/navbar-static-top/">Static top</a></li>
+							<li><a href="/examples/navbar-fixed-top/">Fixed top</a></li>
+						</ul>
+					</div><!--/.nav-collapse -->
+				</div>
+			</div>
+			
+			<!-- Main component for a primary marketing message or call to action -->
+			<div class="jumbotron row marketing" style="padding: 50px 10px; min-width: 1000px;">
+				<div class="col-lg-2 topbar" data-dropdown="dropdown">      
+					<ul class="nav" id="index"></ul>
+				</div>
+				
+				<div class="col-lg-6">
+					<div id="chapters" ></div>
+				</div>
+			</div>
+		</div>
+		</div> <!-- /container -->
+	
+		<script type="text/template" id="chapterTemplate">
+			<div class="chapter" data-id="${id}" >
+				<h3>${id}</h3>
+				<p class="text">${text}</p>
+				<h4>Sessões</h4>
+				<div class="sections"></div>
+			</div>      
+		</script>
+	    
+		<script type="text/template" id="sectionTemplate">
+			<div class="section"  data-id="${id}">
+				<div class="text">${text}</div>
+				
+				<ul class="pager">
+					<li class="previous" style="float:left">
+						<input type="button" value="&larr; Voltar" style="font-size: 15px;" class="back-action btn btn-primary" data-id="${id}" disabled="disabled"/>
+					</li>
+					<li class="next" style="float:right">
+						<input type="button" value="Avancar &rarr;" style="font-size: 15px;" class="next-action btn btn-primary" data-id="${id}"/>
+					</li>
+				</ul>
+				 
+				<div>
+					<ul class="actions nav"></ul>
+				</div>        
+			</div>        
+		</script>
+	  
+		<script type="text/template" id="actionTemplate">
+			<div data-index="${index}" class="action disabled">
+				<span>${text}</span><br />
+				<image src="${imageFile}" border=1 />
+			</div>
+		</script>
+	</body>
 </html>
