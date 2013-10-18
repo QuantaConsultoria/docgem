@@ -144,7 +144,7 @@ public class FileManager {
 			return lista;
 			
 		} catch (FileNotFoundException e) {
-			throw new RuntimeException(e);
+			throw new RuntimeException("Can't read XML file.",e);
 		} finally {
 			close(xmlChapters);
 		}
