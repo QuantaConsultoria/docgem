@@ -57,7 +57,7 @@
 				    <div id="capitulo_<!= i !>" class="accordion-body collapse">
 				    	<! for (var x in chapter.sections) { var section = chapter.sections[x]; !>
 						    <div class="accordion-inner">
-						    	<a href="#<!= section.id !>"><!= section.id !></a>
+						    	<a href="#<!= section.id !>" data-id="<!= section.id !>" class="section-menu"><!= section.id !></a>
 						    </div>
 					    <! } !>
 				    </div>
@@ -73,7 +73,7 @@
 					<h4>Sessões</h4>
 					<div class="sections">
 						<! for(var x in chapter.sections)  { var section = chapter.sections[x]; !>
-							<div class="section"  data-id="<!= section.id !>">
+							<div class="section disabled"  data-id="<!= section.id !>">
 								<div class="text"><!= section.text !></div>
 								
 								<ul class="pager">

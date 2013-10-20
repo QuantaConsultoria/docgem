@@ -48,6 +48,27 @@ var nextAction = function(e) {
 	$("div[data-id='" + sectionId + "']").find(".action[data-index='" + (lastIndex + 1) + "']").removeClass("disabled");
 };
 
+var selectSection = function(e) {
+	e.preventDefault();
+	var sectionId = $(this).data("id");
+	
+	var currentSection = $(".section.active");
+	var selectedSection = $(".section[data-id='" + sectionId + "']");
+	
+	disableElement(currentSection);
+	enableElement(selectedSection);
+};
+
+var enableElement = function(element) {
+	$(element).removeClass("disabled");
+	$(element).addClass("active");
+};
+
+var disableElement = function(element) {
+	$(element).removeClass("active");
+	$(element).addClass("disabled");
+}
+
 var validateAction = function(index, action, sectionId) {
 	var qtdActions = $("div[data-id='" + sectionId + "']").find(".action").length;
 	
@@ -78,4 +99,5 @@ $(function(){
 	
 	$(".back-action").click(previousAction);
 	$(".next-action").click(nextAction)
+	$(".section-menu").click(selectSection);
 });
