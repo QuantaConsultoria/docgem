@@ -63,14 +63,14 @@ public class FileManager {
 			style = this.getClass().getResourceAsStream("/templates/style.css");
 			docgem_js = this.getClass().getResourceAsStream("/templates/docgem.js");
 			jquery = this.getClass().getResourceAsStream("/templates/jquery.min.js");
-			jqueryTmpl = this.getClass().getResourceAsStream("/templates/jquery.tmpl.js");
+			jqueryTmpl = this.getClass().getResourceAsStream("/templates/jquery.template.js");
 			
 			
 			FileUtils.copyInputStreamToFile(index, new File(targetDir,"index.html"));
 			FileUtils.copyInputStreamToFile(style, new File(targetDir, "style.css"));
 			FileUtils.copyInputStreamToFile(docgem_js, new File(targetDir, "docgem.js"));
 			FileUtils.copyInputStreamToFile(jquery, new File(targetDir, "jquery.min.js"));
-			FileUtils.copyInputStreamToFile(jqueryTmpl, new File(targetDir, "jquery.tmpl.js"));
+			FileUtils.copyInputStreamToFile(jqueryTmpl, new File(targetDir, "jquery.template.js"));
 			FileUtils.copyDirectoryToDirectory(new File(this.getClass().getResource("/templates/bootstrap/").getPath()), targetDir);
 		} catch (IOException e) {
 			throw new RuntimeException("Can't copy resources files.",e);

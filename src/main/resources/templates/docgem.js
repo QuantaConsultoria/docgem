@@ -4,33 +4,21 @@ var Action = {
 };
 
 var drawChapters = function(chapters) {
+	$("#index").html(tmpl("menuTemplate", {chapters: chapters}));
 	for (var i in chapters) {
 		var chapter = chapters[i];
-		$.tmpl( $("#chapterTemplate"), chapter ).appendTo( "#chapters" );
-		var index = $("#index");
-		var chapterConteiner = $("<li></li>").addClass('dropdown');
-		var chapterMenu = $("<a></a>").attr("href", '#').text(chapter.id).addClass('dropdown-toggle');
-		var groupSections = $("<ul></ul>").addClass('dropdown-menu');
 
 		for(var j in chapter.sections) {
 			var section = chapter.sections[j];
-			var li = $("<li></li>");
-			var sectionMenu = $("<a></a>").attr("href", section.id).text(section.id);
-			li.append(sectionMenu);
-			groupSections.append(li);
-			$(".chapter[data-id='"+chapter.id+"']" ).find(".sections").append($.tmpl( $("#sectionTemplate"), section ));
 			for(var k in section.actions) {
 				var action = section.actions[k];
 				action.index = k;
-				$(".section[data-id='"+section.id+"']" ).find(".actions").append($.tmpl( $("#actionTemplate"), action));
 			}
 		}
-		chapterMenu.append(groupSections);
-		chapterConteiner.append(chapterMenu);
-		index.append(chapterConteiner);
-		$(".action[data-index='0']").removeClass("disabled");
-		$(".action[data-index='0']").addClass("active");
 	}
+	$("#chapters").html(tmpl("chapterTemplate", {chapter: chapter}));
+	$(".action[data-index='0']").removeClass("disabled");
+	$(".action[data-index='0']").addClass("active");
 }
 
 var previousAction = function(e) {
