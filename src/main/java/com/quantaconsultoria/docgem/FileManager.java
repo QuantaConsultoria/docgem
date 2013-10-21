@@ -26,7 +26,15 @@ import com.thoughtworks.xstream.XStream;
 public class FileManager {
 	
 	private static final Logger LOG = Logger.getLogger(FileManager.class.getName());
+	private static final String INDEX_HTML = "index.html";
+	private static final String STYLE_CSS = "style.css";
+	private static final String DOCGEM_JS = "docgem.js";
+	private static final String JQUERY_JS = "jquery.min.js";
+	private static final String JQUERY_TEMPLATES= "jquery.template.js";
+	private static final String BOOTSTRAP_JS= "bootstrap/js/bootstrap.min.js";
+	private static final String BOOTSTRAP_CSS= "bootstrap/css/bootstrap.min.css";
 	private DocumentationConfiguration configuration;
+	
 	
 	
 	public FileManager(DocumentationConfiguration configuration) {
@@ -57,21 +65,27 @@ public class FileManager {
 		InputStream docgem_js = null;
 		InputStream jquery = null;
 		InputStream jqueryTmpl = null;
+		InputStream bootstrapJs = null;
+		InputStream bootstrapCss = null;
+		String templateDir = "/templates/";
 		
 		try {
-			index = this.getClass().getResourceAsStream("/templates/index.html");
-			style = this.getClass().getResourceAsStream("/templates/style.css");
-			docgem_js = this.getClass().getResourceAsStream("/templates/docgem.js");
-			jquery = this.getClass().getResourceAsStream("/templates/jquery.min.js");
-			jqueryTmpl = this.getClass().getResourceAsStream("/templates/jquery.template.js");
+			index = this.getClass().getResourceAsStream(templateDir+INDEX_HTML);
+			style = this.getClass().getResourceAsStream(templateDir+STYLE_CSS);
+			docgem_js = this.getClass().getResourceAsStream(templateDir+DOCGEM_JS);
+			jquery = this.getClass().getResourceAsStream(templateDir+JQUERY_JS);
+			jqueryTmpl = this.getClass().getResourceAsStream(templateDir+JQUERY_TEMPLATES);
+			bootstrapJs = this.getClass().getResourceAsStream(templateDir+BOOTSTRAP_JS);
+			bootstrapCss = this.getClass().getResourceAsStream(templateDir+BOOTSTRAP_CSS);
 			
 			
-			FileUtils.copyInputStreamToFile(index, new File(targetDir,"index.html"));
-			FileUtils.copyInputStreamToFile(style, new File(targetDir, "style.css"));
-			FileUtils.copyInputStreamToFile(docgem_js, new File(targetDir, "docgem.js"));
-			FileUtils.copyInputStreamToFile(jquery, new File(targetDir, "jquery.min.js"));
-			FileUtils.copyInputStreamToFile(jqueryTmpl, new File(targetDir, "jquery.template.js"));
-			FileUtils.copyDirectoryToDirectory(new File(this.getClass().getResource("/templates/bootstrap/").getPath()), targetDir);
+			FileUtils.copyInputStreamToFile(index, new File(targetDir,INDEX_HTML));
+			FileUtils.copyInputStreamToFile(style, new File(targetDir, STYLE_CSS));
+			FileUtils.copyInputStreamToFile(docgem_js, new File(targetDir, DOCGEM_JS));
+			FileUtils.copyInputStreamToFile(jquery, new File(targetDir, JQUERY_JS));
+			FileUtils.copyInputStreamToFile(jqueryTmpl, new File(targetDir, JQUERY_TEMPLATES));
+			FileUtils.copyInputStreamToFile(bootstrapJs, new File(targetDir, BOOTSTRAP_JS));
+			FileUtils.copyInputStreamToFile(bootstrapCss, new File(targetDir, BOOTSTRAP_CSS));
 		} catch (IOException e) {
 			throw new RuntimeException("Can't copy resources files.",e);
 		} finally {
