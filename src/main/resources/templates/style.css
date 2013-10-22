@@ -1,44 +1,70 @@
-/*body {
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-size: 14px;
-	line-height: 20px;
-	color: #333333;
-	padding-top: 20px;
-	padding-bottom: 60px;
-}
-
-div {
-	display: block;	
-}
-
-#wrap {
-	min-height: 100%;
-	height: auto !important;
-	height: 100%;
-	margin: 0 auto -60px;
-}
-
-
-
-.container {
-	max-width: 900px;
-	margin-right: auto;
-	margin-left: auto;
-}
-
-.page-header {
-	padding-bottom: 9px;
-	margin: 20px 0 30px;
-	border-bottom: 1px solid #eeeeee;
-}
-
-.actions{
-	max-width: 100%;
-}*/
 .active {
 	display: block;	
 }
 
 .disabled {
 	display: none;
+}
+
+#menu-lateral {
+	padding: 0;
+}
+
+#menu div.accordion-group {
+	border: 0px;
+	padding: 0;
+}
+
+.accordion-body .accordion-inner .accordion-heading .accordion-toggle {
+	padding: 0px;
+}
+
+#menu {
+	border-right: 1px solid #ccc;
+	margin-right: -1px;
+	min-height: 400px;
+	padding-bottom: 10px;
+}
+
+#menu nav {
+	border: 1px solid #ddd;
+	box-shadow: 0 3px 2px #ccc;
+	margin: 13px 10px 10px;
+}
+
+#menu div.accordion, div.accordion-heading, div.accordion-toggle{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+#menu nav > div > div  {
+	background: #fefefe;
+	background: -moz-linear-gradient(top, #fefefe 0%, #eef0f1 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fefefe), color-stop(100%, #eef0f1));
+	background: -webkit-linear-gradient(top, #fefefe 0%, #eef0f1 100%);
+	background: -o-linear-gradient(top, #fefefe 0%, #eef0f1 100%);
+	background: -ms-linear-gradient(top, #fefefe 0%, #eef0f1 100%);
+	background: linear-gradient(top, #fefefe 0%, #eef0f1 100%);
+	border-bottom: 1px solid rgba(204, 204, 204, 0.75);
+	color: #666666;
+	display: block;
+	font-size: 13px;
+	font-weight: bold;
+	list-style: none;
+	padding: 7px 10px;
+	text-shadow: 0 1px 0 #ffffff;
+	text-decoration: none;
+}
+
+#menu nav > div > div > div > div a {
+	color: #666666;
+	display: block;
+	font-size: 12px;
+	padding: 4px 10px;
+	text-decoration: none;
+	text-shadow: 0 1px 0 #ffffff;
 }
