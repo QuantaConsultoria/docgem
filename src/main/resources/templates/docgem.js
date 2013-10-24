@@ -57,6 +57,7 @@ var selectSection = function(e) {
 	
 	disableElement(currentSection);
 	enableElement(selectedSection);
+	validateAction(-1, Action.NEXT, sectionId);
 };
 
 var selectChapter = function(e) {
@@ -81,8 +82,13 @@ var disableElement = function(element) {
 
 var validateAction = function(index, action, sectionId) {
 	var qtdActions = $("div[data-id='" + sectionId + "']").find(".action").length;
+	var buttonback = $("div[data-id='" + sectionId + "']").find(".back-action");
+	var buttonNext = $("div[data-id='" + sectionId + "']").find(".next-action");
 	
-	if(action == Action.NEXT) {
+	if(qtdActions == 1) {
+		$(buttonback).attr("disabled", "disabled");
+		$(buttonNext).attr("disabled", "disabled");
+	} else 	if(action == Action.NEXT) {
 		index = index + 1;
 		if(index > 0) {
 			$("div[data-id='" + sectionId + "']").find(".back-action").removeAttr("disabled");
