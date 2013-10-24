@@ -50,7 +50,7 @@
 			<! for (var i in chapters)  { var chapter = chapters[i]; !>
 				<div class="accordion-group">
 				    <div class="accordion-heading">
-				      <a class="accordion-toggle" data-toggle="collapse" data-parent="#chapters" href="#capitulo_<!= i !>">
+				      <a class="accordion-toggle chapter-menu" data-toggle="collapse" data-parent="#chapters" href="#capitulo_<!= i !>" data-id="<!= chapter.id !>">
 				        <!= chapter.id !>
 				      </a>
 				    </div>
@@ -67,7 +67,7 @@
 	
 		<script type="text/template" id="chapterTemplate">
 			<! for(var i in chapters)  { var chapter = chapters[i]; !>
-				<div class="chapter" data-id="<!= chapter.id !>">
+				<div class="chapter disabled" data-id="<!= chapter.id !>">
 					<h3><!= chapter.id !></h3>
 					<p class="text"><!= chapter.text !></p>
 					<h4>Sessões</h4>

@@ -59,6 +59,16 @@ var selectSection = function(e) {
 	enableElement(selectedSection);
 };
 
+var selectChapter = function(e) {
+	var chapterId = $(this).data("id");
+	
+	var currentChapter = $(".chapter.active");
+	var selectedChapter = $(".chapter[data-id='" + chapterId + "']");
+	
+	disableElement(currentChapter);
+	enableElement(selectedChapter);
+};
+
 var enableElement = function(element) {
 	$(element).removeClass("disabled");
 	$(element).addClass("active");
@@ -100,4 +110,5 @@ $(function(){
 	$(".back-action").click(previousAction);
 	$(".next-action").click(nextAction)
 	$(".section-menu").click(selectSection);
+	$(".chapter-menu").click(selectChapter);
 });
