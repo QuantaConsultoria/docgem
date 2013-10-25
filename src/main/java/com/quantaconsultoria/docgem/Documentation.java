@@ -92,13 +92,31 @@ public class Documentation {
 			ImageUtil.circulateElement(imageFile, element);
 			String imageFinalFile = fileManager.saveScreenshot(imageFile);
 			ActionBag action = new ActionBag();
-			action.setText(text);
+			action.setText(text + getCurrentActionText());
 			action.setImageFile(imageFinalFile);
 			
 			fileManager.writeInfoAction(this.getCurrentChapter(), this.getCurrentSection(), action);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	private String getCurrentActionText() {
+		String actionText = "";
+		try {
+			StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+			for (StackTraceElement element : stackTrace) {
+				if (scanner.existChapter(element)) {
+					Method method = ReflectionsUtil.getMethod(element);
+					if (scanner.existAction(method)) {
+						actionText = " " + scanner.getAction(method).text();
+					}
+				}
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return actionText;
 	}
 
 	private Section getCurrentSection() {

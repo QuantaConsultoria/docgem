@@ -8,18 +8,21 @@ import java.util.Set;
 import org.reflections.Reflections;
 import org.reflections.scanners.TypeAnnotationsScanner;
 
+import com.quantaconsultoria.docgem.annotations.Action;
 import com.quantaconsultoria.docgem.annotations.Chapter;
 import com.quantaconsultoria.docgem.annotations.Section;
 
 public class DocumentationScanner {
 
 	private Map<String, Chapter> classesMapped;
-	private Map<Method, Section> methodsMapped;
+	private Map<Method, Section> methodsMappedWithSections;
+	private Map<Method, Action> methodsMappedWithActions;
 	private DocumentationConfiguration configuration;
 	
 	public DocumentationScanner(DocumentationConfiguration configuration) {
 		classesMapped = new HashMap<String, Chapter>();
-		methodsMapped = new HashMap<Method, Section>();
+		methodsMappedWithSections = new HashMap<Method, Section>();
+		methodsMappedWithActions = new HashMap<Method, Action>();
 		this.configuration = configuration;
 	}
 	
@@ -34,8 +37,12 @@ public class DocumentationScanner {
 			classesMapped.put(testedChapter.getCanonicalName(), chapter);
 			for(Method method : testedChapter.getMethods()) {
 				Section section = method.getAnnotation(Section.class); 
+				Action action = method.getAnnotation(Action.class);
 				if (section!=null) {
-					methodsMapped.put(method, section);
+					methodsMappedWithSections.put(method, section);
+				}
+				if(action != null) {
+					methodsMappedWithActions.put(method, action);
 				}
 			}
 		}
@@ -50,10 +57,18 @@ public class DocumentationScanner {
 	}
 
 	public boolean existSection(Method method) {
-		return methodsMapped.containsKey(method);	
+		return methodsMappedWithSections.containsKey(method);	
 	}
 
 	public Section getSection(Method method) {
-		return methodsMapped.get(method);
+		return methodsMappedWithSections.get(method);
+	}
+
+	public boolean existAction(Method method) {
+		return methodsMappedWithActions.containsKey(method);	
+	}
+	
+	public Action getAction(Method method) {
+		return methodsMappedWithActions.get(method);
 	}
 }
