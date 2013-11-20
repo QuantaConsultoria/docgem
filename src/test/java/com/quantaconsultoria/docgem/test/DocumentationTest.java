@@ -59,7 +59,7 @@ public class DocumentationTest {
 		login.sendKeys("Admin");
 		documentation.addAction("Informe o nome do usuário", login);
 		
-		List<String> lines = FileUtils.readLines(new File(config.getActionsFile()));
+		List<String> lines = FileUtils.readLines(new File(config.getActionsFile()),"UTF8");
 		
 		String[] parts = lines.get(lines.size()-1).split("\\;");
 		
