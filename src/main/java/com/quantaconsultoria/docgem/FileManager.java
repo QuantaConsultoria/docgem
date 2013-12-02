@@ -22,6 +22,7 @@ import com.quantaconsultoria.docgem.bags.ActionBag;
 import com.quantaconsultoria.docgem.bags.ChapterBag;
 import com.quantaconsultoria.docgem.bags.SectionBag;
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
 public class FileManager {
 	
@@ -148,7 +149,7 @@ public class FileManager {
 	public List<ChapterBag> readChapterssXml() throws IOException {
 		InputStream xmlChapters = null;
 		try {
-			XStream xstream = new XStream();
+			XStream xstream = new XStream(new DomDriver(configuration.getEncoding()));
 			xstream.alias("chapters", ArrayList.class);
 			xstream.alias("chapter", ChapterBag.class);
 			xstream.alias("section", SectionBag.class);

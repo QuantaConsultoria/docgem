@@ -12,7 +12,7 @@ public class DocumentationConfiguration {
 
 	public DocumentationConfiguration() {
 		target = "target/docgem/";
-		encoding = "UTF8";
+		encoding = "UTF-8";
 	}
 
 	public DocumentationConfiguration(String target, String packagePrefix,
