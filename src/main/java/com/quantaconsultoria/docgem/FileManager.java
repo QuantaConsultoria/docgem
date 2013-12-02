@@ -56,8 +56,9 @@ public class FileManager {
 	
 	public void saveJson(String json) throws IOException {
 		File data_json = new File(configuration.getTarget(),"data.js");			
-		FileUtils.writeStringToFile(data_json, json);
+		FileUtils.writeStringToFile(data_json, json, configuration.getEncoding());
 	}
+	
 	public void copyResources() {
 		File targetDir = new File(configuration.getTarget());
 		InputStream index = null;
