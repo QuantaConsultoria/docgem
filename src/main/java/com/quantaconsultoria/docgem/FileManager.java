@@ -169,7 +169,7 @@ public class FileManager {
 	public Map<String, ChapterBag> readActionsFile() throws IOException {
 		Map<String, ChapterBag> chapters= new HashMap<>();
 		
-		List<String> lines = FileUtils.readLines(new File(configuration.getActionsFile()));
+		List<String> lines = FileUtils.readLines(new File(configuration.getActionsFile()), configuration.getEncoding());
 		for(String line : lines) {
 			String[] parts = line.split("\\;");
 			
