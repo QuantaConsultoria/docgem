@@ -81,6 +81,9 @@ public class Documentation {
 
 	public void addAction(String text, WebElement element) {
 		try {
+			Chapter currentChapter = this.getCurrentChapter();
+			Section currentSection = this.getCurrentSection();
+			
 			File imageFile = null;
 			
 			if(driver instanceof TakesScreenshot) {
@@ -95,7 +98,7 @@ public class Documentation {
 			action.setText(text + getCurrentActionText());
 			action.setImageFile(imageFinalFile);
 			
-			fileManager.writeInfoAction(this.getCurrentChapter(), this.getCurrentSection(), action);
+			fileManager.writeInfoAction(currentChapter, currentSection, action);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
