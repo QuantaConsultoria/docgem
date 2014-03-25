@@ -22,6 +22,7 @@ import com.quantaconsultoria.docgem.annotations.Section;
 import com.quantaconsultoria.docgem.bags.ActionBag;
 import com.quantaconsultoria.docgem.bags.ChapterBag;
 import com.quantaconsultoria.docgem.bags.SectionBag;
+import com.quantaconsultoria.docgem.factory.impl.ChapterBagFactory;
 import com.quantaconsultoria.docgem.repository.InformationRepository;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -70,48 +71,14 @@ public class InformationRepositoryDefault implements InformationRepository {
 			
 			if(chapters.containsKey(parts[0])) {
 				ChapterBag chapterBag = chapters.get(parts[0]);
-				updateChapterInfo(chapterBag,parts);
+				ChapterBagFactory.updateChapterInfo(chapterBag,parts);
 			} else {
-				ChapterBag chapterBag = createChapterFromStringArray(parts);
+				ChapterBag chapterBag = ChapterBagFactory.createChapterFromStringArray(parts);
 				chapters.put(chapterBag.getId(), chapterBag);
 			}
 		}
 		
 		return chapters;
-	}
-	
-	
-	private void updateChapterInfo(ChapterBag chapterBag, String[] parts) {
-		SectionBag sectionBag = chapterBag.getSection(parts[1]); 
-		if(sectionBag != null){
-			sectionBag.getActions().add(createActionFomArrayInfo(parts));
-		} else {
-			chapterBag.getSections().add(createSectionFromArrayInfo(parts));
-		}
-	}
-	
-	private SectionBag createSectionFromArrayInfo(String[] parts) {
-		SectionBag sectionBag = new SectionBag();
-		sectionBag.setId(parts[1]);
-		sectionBag.setActions(new ArrayList<ActionBag>());
-		sectionBag.getActions().add(createActionFomArrayInfo(parts));
-		
-		return sectionBag;
-	}
-	
-	private ActionBag createActionFomArrayInfo(String[] parts) {
-		return new ActionBag(parts[2], parts[3]);
-	}
-
-	private ChapterBag createChapterFromStringArray(String[] parts) {
-		ChapterBag chapterBag = new ChapterBag();
-		chapterBag.setId(parts[0]);
-		chapterBag.setSections(new ArrayList<SectionBag>());
-		
-		SectionBag sectionBag = createSectionFromArrayInfo(parts);
-		chapterBag.getSections().add(sectionBag);
-		
-		return chapterBag;
 	}
 	
 	@Override
