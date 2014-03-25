@@ -21,6 +21,8 @@ import com.quantaconsultoria.docgem.Documentation;
 import com.quantaconsultoria.docgem.DocumentationConfiguration;
 import com.quantaconsultoria.docgem.annotations.Chapter;
 import com.quantaconsultoria.docgem.annotations.Section;
+import com.quantaconsultoria.docgem.factory.Factory;
+import com.quantaconsultoria.docgem.factory.impl.FactoryDefault;
 
 @Chapter(id = "Capitulo 1")
 public class DocumentationTest {
@@ -39,7 +41,8 @@ public class DocumentationTest {
 		config.setChaptersXmlPath(this.getClass()
 				.getResource("/examples/chapters.xml").getPath());
 		config.setPackagePrefix("com.quantaconsultoria.docgem");
-		documentation = new Documentation(driver, config);
+		Factory factory = new FactoryDefault(config);
+		documentation = new Documentation(driver, factory);
 	}
 
 	@After

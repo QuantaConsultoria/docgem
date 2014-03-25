@@ -17,31 +17,36 @@ import com.quantaconsultoria.docgem.annotations.Section;
 import com.quantaconsultoria.docgem.bags.ActionBag;
 import com.quantaconsultoria.docgem.bags.ChapterBag;
 import com.quantaconsultoria.docgem.bags.SectionBag;
+import com.quantaconsultoria.docgem.factory.Factory;
 import com.quantaconsultoria.docgem.reflections.ReflectionsUtil;
+import com.quantaconsultoria.docgem.repository.InformationRepository;
+import com.quantaconsultoria.docgem.util.ImageUtil;
 
 public class Documentation {
 
 	private RemoteWebDriver driver;
-	private DocumentationConfiguration configuration;
 	private DocumentationScanner scanner;
-	private FileManager fileManager;
+	private Builder builder;
+	private InformationRepository repository;
+	private Factory factory;
 	
 	
 	protected Documentation() {
 		
 	}
 	
-	public Documentation(RemoteWebDriver driver, DocumentationConfiguration config) {
+	public Documentation(RemoteWebDriver driver, Factory factory) {
 		this();
-		scanner = new DocumentationScanner(config);
-		scanner.scan();
 		this.driver = driver;
-		this.configuration = config;
-		fileManager = new FileManager(configuration);
+		scanner = new DocumentationScanner(factory.getConfiguration());
+		scanner.scan();
+		builder = factory.getBuilder();
+		repository = factory.getRepository();
+		this.factory = factory;
 	}
 
 	public void makeIt() throws IOException {
-		fileManager.copyResources();
+		builder.copyResources();
 		buildJson();
 	}
 
@@ -51,15 +56,15 @@ public class Documentation {
 			Gson gson = new Gson();			
 			String json = gson.toJson(sortedChapters);
 			json = "var chapters = "+json+";";			
-			fileManager.saveJson(json);
+			builder.saveJson(json);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
 	private List<ChapterBag> mergeWithXmlChaptersBag() throws IOException {
-		List<ChapterBag> finalChapters = fileManager.readChapterssXml();
-		Map<String, ChapterBag> chapters = fileManager.readActionsFile();
+		List<ChapterBag> finalChapters = repository.readSortedChapters();
+		Map<String, ChapterBag> chapters = repository.readActions();
 		
 		for(ChapterBag xmlChapter : finalChapters) {
 			ChapterBag docChapter = chapters.get(xmlChapter.getId());
@@ -93,12 +98,12 @@ public class Documentation {
 			}
 			
 			ImageUtil.circulateElement(imageFile, element);
-			String imageFinalFile = fileManager.saveScreenshot(imageFile);
+			String imageFinalFile = ImageUtil.saveScreenshot(imageFile, factory.getConfiguration());
 			ActionBag action = new ActionBag();
 			action.setText(text + getCurrentActionText());
 			action.setImageFile(imageFinalFile);
 			
-			fileManager.writeInfoAction(currentChapter, currentSection, action);
+			repository.saveInfoAction(currentChapter, currentSection, action);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

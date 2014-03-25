@@ -11,19 +11,19 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Matchers;
-import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import com.quantaconsultoria.docgem.Builder;
 import com.quantaconsultoria.docgem.DocumentationConfiguration;
-import com.quantaconsultoria.docgem.FileManager;
 import com.quantaconsultoria.docgem.annotations.Chapter;
+import com.quantaconsultoria.docgem.format.html.HtmlBuilder;
 
 @Chapter(id = "Capitulo falha")
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({File.class, FileUtils.class, FileInputStream.class})
-public class FileManagerTest {
+public class HtmlBuilderTest {
 	
 	@Rule
 	public ExpectedException exception = ExpectedException.none();
@@ -38,24 +38,8 @@ public class FileManagerTest {
 		FileUtils.copyInputStreamToFile(Matchers.any(InputStream.class), Matchers.any(File.class));
 		
 		DocumentationConfiguration config = new DocumentationConfiguration();
-		FileManager fileManager = new FileManager(config);
-		fileManager.copyResources();
+		Builder builder = new HtmlBuilder(config);
+		builder.copyResources();
 	}
 	
-	@Test
-	public void readChapterssXmlFail() throws Exception {
-		exception.expect(RuntimeException.class);
-		exception.expectMessage("Can't read XML file.");
-		
-		File file = Mockito.mock(File.class);
-		PowerMockito.whenNew(File.class).withAnyArguments().thenReturn(file);
-		
-		FileInputStream inputStream = Mockito.mock(FileInputStream.class);
-		PowerMockito.whenNew(FileInputStream.class).withAnyArguments().thenReturn(inputStream);
-		
-		DocumentationConfiguration config = new DocumentationConfiguration();
-		config.setChaptersXmlPath("");
-		FileManager fileManager = new FileManager(config);
-		fileManager.readChapterssXml();
-	}
 }

@@ -14,6 +14,8 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import com.quantaconsultoria.docgem.Documentation;
 import com.quantaconsultoria.docgem.DocumentationConfiguration;
 import com.quantaconsultoria.docgem.annotations.Section;
+import com.quantaconsultoria.docgem.factory.Factory;
+import com.quantaconsultoria.docgem.factory.impl.FactoryDefault;
 
 public class DocumentationChapterFailureScenarioTest {
 
@@ -34,7 +36,8 @@ public class DocumentationChapterFailureScenarioTest {
 		config.setChaptersXmlPath(this.getClass()
 				.getResource("/examples/chapters.xml").getPath());
 		config.setPackagePrefix("com.quantaconsultoria.docgem");
-		documentation = new Documentation(driver, config);
+		Factory factory = new FactoryDefault(config);
+		documentation = new Documentation(driver, factory);
 	}
 
 	@After

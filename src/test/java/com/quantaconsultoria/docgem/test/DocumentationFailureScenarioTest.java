@@ -16,6 +16,8 @@ import com.quantaconsultoria.docgem.Documentation;
 import com.quantaconsultoria.docgem.DocumentationConfiguration;
 import com.quantaconsultoria.docgem.annotations.Chapter;
 import com.quantaconsultoria.docgem.annotations.Section;
+import com.quantaconsultoria.docgem.factory.Factory;
+import com.quantaconsultoria.docgem.factory.impl.FactoryDefault;
 
 @Chapter(id = "Capitulo falha")
 public class DocumentationFailureScenarioTest {
@@ -23,6 +25,7 @@ public class DocumentationFailureScenarioTest {
 	private RemoteWebDriver driver;
 	private Documentation documentation;
 	private DocumentationConfiguration config;
+	private Factory factory;
 
 	@Rule
 	public ExpectedException exception = ExpectedException.none();
@@ -37,7 +40,8 @@ public class DocumentationFailureScenarioTest {
 		config.setChaptersXmlPath(this.getClass()
 				.getResource("/examples/chapters.xml").getPath());
 		config.setPackagePrefix("com.quantaconsultoria.docgem");
-		documentation = new Documentation(driver, config);
+		factory = new FactoryDefault(config);
+		documentation = new Documentation(driver, factory);
 	}
 
 	@After
@@ -62,7 +66,7 @@ public class DocumentationFailureScenarioTest {
 	    exception.expectMessage("Can't take a screenshot.");
 	    
 	    RemoteWebDriver driverMock = Mockito.mock(RemoteWebDriver.class, Mockito.withSettings());
-	    Documentation documentation2 = new Documentation(driverMock, config);
+	    Documentation documentation2 = new Documentation(driverMock, factory);
 	    
 		WebElement login = action();
 		documentation2.addAction("Informe o nome do usuário", login);
