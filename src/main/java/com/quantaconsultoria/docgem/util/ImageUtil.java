@@ -17,7 +17,7 @@ import com.quantaconsultoria.docgem.DocumentationConfiguration;
 public class ImageUtil {
 	
 
-	public static void circulateElement(File image, WebElement elemento) throws IOException {
+	public static void highlightElement(File image, WebElement elemento) throws IOException {
 		BufferedImage imagem = ImageIO.read(image);
 		Graphics2D g = imagem.createGraphics();
 		g.setStroke(new BasicStroke(5));

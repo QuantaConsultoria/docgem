@@ -97,7 +97,7 @@ public class Documentation {
 				throw new RuntimeException("Can't take a screenshot.");
 			}
 			
-			ImageUtil.circulateElement(imageFile, element);
+			ImageUtil.highlightElement(imageFile, element);
 			String imageFinalFile = ImageUtil.saveScreenshot(imageFile, factory.getConfiguration());
 			ActionBag action = new ActionBag();
 			action.setText(text + getCurrentActionText());
