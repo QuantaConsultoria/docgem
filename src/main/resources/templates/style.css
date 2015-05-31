@@ -1,16 +1,35 @@
 .active {
-	display: block;	
+	display: block;
 }
 
 .disabled {
 	display: none;
 }
 
+.container {
+	padding: 0px;
+	width: 1300px;
+}
+
+.chapter-title {
+	padding-left: 15px;
+	border-bottom: 2px solid rgba(0,0,0,0.08);
+}
+.section-title {
+	padding-top: 10px;
+	padding-left: 15px;
+	border-bottom: 2px solid rgba(0,0,0,0.08);
+}
+
+#content {
+	width: 100%;
+}
+
 #menu-lateral {
 	padding: 0;
 }
 
-#menu div.accordion-group {
+#container div.accordion-group {
 	border: 0px;
 	padding: 0;
 }
@@ -19,20 +38,22 @@
 	padding: 0px;
 }
 
-#menu {
+#container {
 	border-right: 1px solid #ccc;
 	margin-right: -1px;
 	min-height: 400px;
-	padding-bottom: 10px;
+	padding: 4px;
+	width: 1300px;
 }
 
-#menu nav {
+#container nav {
 	border: 1px solid #ddd;
 	box-shadow: 0 3px 2px #ccc;
 	margin: 13px 10px 10px;
 }
 
-#menu div.accordion, div.accordion-heading, div.accordion-toggle{
+#container div.accordion, div.accordion-heading, div.accordion-toggle{
+	font-family: 'OpenSans', 'Helvetica Neue', sans-serif;
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -41,7 +62,18 @@
 	vertical-align: baseline;
 }
 
-#menu nav > div > div  {
+.accordion-heading .accordion-toggle {
+  display: block;
+  padding: 2px 8px;
+  cursor: pointer;
+}
+
+.accordion-inner {
+  padding: 2px 4px;
+  border-top: 1px solid #e5e5e5;
+}
+
+#container nav > div > div  {
 	background: #fefefe;
 	background: -moz-linear-gradient(top, #fefefe 0%, #eef0f1 100%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fefefe), color-stop(100%, #eef0f1));
@@ -60,11 +92,17 @@
 	text-decoration: none;
 }
 
-#menu nav > div > div > div > div a {
+#container nav > div > div > div > div a {
 	color: #666666;
 	display: block;
 	font-size: 12px;
-	padding: 4px 10px;
+	padding: 2px 8px;
 	text-decoration: none;
 	text-shadow: 0 1px 0 #ffffff;
+}
+
+#chapters {
+  width: 1010px;
+  float: left;
+  padding-left: 10px;
 }

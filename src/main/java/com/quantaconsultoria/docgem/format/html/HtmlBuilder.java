@@ -20,8 +20,8 @@ public class HtmlBuilder implements Builder {
 	private static final String JQUERY_JS = "jquery.min.js";
 	private static final String JQUERY_TEMPLATES= "jquery.template.js";
 	private static final String BOOTSTRAP_JS= "bootstrap/js/bootstrap.min.js";
-	private static final String LAZYLOAD_JS= "jquery.lazyload.js";
 	private static final String BOOTSTRAP_CSS= "bootstrap/css/bootstrap.min.css";
+	private static final String ICONE= "bootstrap/images/help_256.png";
 	private DocumentationConfiguration configuration;
 
 
@@ -45,7 +45,7 @@ public class HtmlBuilder implements Builder {
 		InputStream jqueryTmpl = null;
 		InputStream bootstrapJs = null;
 		InputStream bootstrapCss = null;
-		InputStream lazyLoadJs = null;
+		InputStream icone = null;
 		String templateDir = "/templates/";
 
 		try {
@@ -56,7 +56,7 @@ public class HtmlBuilder implements Builder {
 			jqueryTmpl = this.getClass().getResourceAsStream(templateDir+JQUERY_TEMPLATES);
 			bootstrapJs = this.getClass().getResourceAsStream(templateDir+BOOTSTRAP_JS);
 			bootstrapCss = this.getClass().getResourceAsStream(templateDir+BOOTSTRAP_CSS);
-			lazyLoadJs = this.getClass().getResourceAsStream(templateDir+LAZYLOAD_JS);
+			icone = this.getClass().getResourceAsStream(templateDir+ICONE);
 
 
 			FileUtils.copyInputStreamToFile(index, new File(targetDir,INDEX_HTML));
@@ -66,7 +66,7 @@ public class HtmlBuilder implements Builder {
 			FileUtils.copyInputStreamToFile(jqueryTmpl, new File(targetDir, JQUERY_TEMPLATES));
 			FileUtils.copyInputStreamToFile(bootstrapJs, new File(targetDir, BOOTSTRAP_JS));
 			FileUtils.copyInputStreamToFile(bootstrapCss, new File(targetDir, BOOTSTRAP_CSS));
-			FileUtils.copyInputStreamToFile(lazyLoadJs, new File(targetDir, LAZYLOAD_JS));
+			FileUtils.copyInputStreamToFile(icone, new File(targetDir, ICONE));
 		} catch (IOException e) {
 			throw new RuntimeException("Can't copy resources files.",e);
 		} finally {
@@ -75,7 +75,7 @@ public class HtmlBuilder implements Builder {
 			close(docgem_js);
 			close(jquery);
 			close(jqueryTmpl);
-			close(lazyLoadJs);
+			close(icone);
 		}
 	}
 
