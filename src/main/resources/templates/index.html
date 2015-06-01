@@ -5,11 +5,13 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="">
 		<meta name="author" content="">
+		<link rel="icon" type="image/png" href="./bootstrap/images/help_256.png" />
 
-		<title>Navbar Template for Bootstrap</title>
+		<title>Manual</title>
 
 		<!-- Bootstrap core CSS -->
 		<link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="css/iconic-bootstrap.css">
 		<link href="./style.css" rel="stylesheet">
 
 
@@ -17,12 +19,11 @@
 		<script type="text/javascript" src="./jquery.template.js"></script>
 		<script type="text/javascript" src="./data.js"></script>
 		<script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="./jquery.lazyload.js"></script>
 		<script type="text/javascript" src="./docgem.js"></script>
 
 		<style>
 			ul.nav li.dropdown:hover ul.dropdown-menu{
-				display: block;    
+				display: block;
 			}
 
 			a.menu:after, .dropdown-toggle:after {
@@ -30,26 +31,18 @@
 			}
 		</style>
 
-		<script type="text/javascript">
-			$(function() {
-	    	$("img.lazy").lazyload({
-		    	effect : "fadeIn"
-				});
-			});
-		</script>
-
 	</head>
 
 	<body>
 		<div class="container">
 
 			<!-- Main component for a primary marketing message or call to action -->
-			<div id="menu" class="jumbotron row marketing" style="min-width: 1300px;padding: 0px;">
-				<nav id="menu-lateral" class="col-lg-2 topbar" data-dropdown="dropdown">      
+			<div id="container" class="jumbotron row marketing">
+				<nav id="menu-lateral" class="col-lg-2 topbar" data-dropdown="dropdown">
 					<div class="accordion" id="index"></div>
 				</nav>
 
-				<div class="col-lg-6">
+				<div id="content">
 					<div id="chapters" ></div>
 				</div>
 			</div>
@@ -67,7 +60,7 @@
 				    <div id="capitulo_<!= i !>" class="accordion-body collapse">
 				    	<! for (var x in chapter.sections) { var section = chapter.sections[x]; !>
 						    <div class="accordion-inner">
-						    	<a href="#<!= section.id !>" data-id="<!= section.id !>" class="section-menu"><!= section.id !></a>
+						    	<a href="#<!= section.id !>" data-id="<!= section.id !>" class="section-menu" data-chapter="<!= chapter.id !>"><!= section.id !></a>
 						    </div>
 					    <! } !>
 				    </div>
@@ -78,66 +71,39 @@
 		<script type="text/template" id="chapterTemplate">
 			<! for(var i in chapters)  { var chapter = chapters[i]; !>
 				<div class="chapter disabled" data-id="<!= chapter.id !>">
-					<h3><!= chapter.id !></h3>
+					<h3 class="chapter-title"><!= chapter.id !></h3>
 					<p class="text"><!= chapter.text !></p>
-					<h4>Sessões</h4>
-					<div class="sections">
-						<! for(var x in chapter.sections)  { var section = chapter.sections[x]; !>
-							<div class="section disabled"  data-id="<!= section.id !>">
-								<div class="text"><!= section.text !></div>
 
-								<ul class="pager">
-									<li class="previous" style="float:left">
-										<input type="button" value="&larr; Voltar" style="font-size: 15px;" class="back-action btn btn-primary" data-id="<!= section.id !>" disabled="disabled"/>
-									</li>
-									<li class="next" style="float:right">
-										<input type="button" value="Avancar &rarr;" style="font-size: 15px;" class="next-action btn btn-primary" data-id="<!= section.id !>"/>
-									</li>
-								</ul>
-
-								<div>
-									<ul class="actions nav">
-										<! for(var y in section.actions) { var action =  section.actions[y]; !>
-											<div data-index="<!= action.index !>" class="action disabled">
-												<span><!= action.text !></span><br />
-												<img data-original="<!= action.imageFile !>" class="lazy" border=1 />
-											</div>
-										<! } !>
-									</ul>
-								</div>
-
-							</div>
-						<! } !>
-					</div>
+					<div class="sections" data-chapter="<!= chapter.id !>"/>
 				</div>
 			<! } !>
 		</script>
 
 		<script type="text/template" id="sectionTemplate">
-			<div class="section"  data-id="${id}">
-				<div class="text">${text}</div>
+			<div class="section"  data-id="<!= section.id !>">
+				<h3 class="section-title"><!= section.id !></h3>
+				<div class="text"><!= section.text !></div>
 
 				<ul class="pager">
 					<li class="previous" style="float:left">
-						<input type="button" value="&larr; Voltar" style="font-size: 15px;" class="back-action btn btn-primary" data-id="${id}" disabled="disabled"/>
+						<input type="button" value="&larr; Voltar" style="font-size: 15px;" class="back-action btn btn-primary" data-id="<!= section.id !>" disabled="disabled"/>
 					</li>
 					<li class="next" style="float:right">
-						<input type="button" value="Avancar &rarr;" style="font-size: 15px;" class="next-action btn btn-primary" data-id="${id}"/>
+						<input type="button" value="Avancar &rarr;" style="font-size: 15px;" class="next-action btn btn-primary" data-id="<!= section.id !>"/>
 					</li>
 				</ul>
 
 				<div>
-					<ul class="actions nav"></ul>
+					<ul class="actions nav">
+						<! for(var y in section.actions) { var action =  section.actions[y]; !>
+							<div data-index="<!= action.index !>" class="action disabled">
+								<span><!= action.text !></span><br />
+								<img src="<!= action.imageFile !>" border=1 />
+							</div>
+						<! } !>
+					</ul>
 				</div>
-			</div>
-		</script>
 
-		<script type="text/template" id="actionTemplate">
-			<div data-index="${index}" class="action disabled">
-				<span>${text}</span><br />
-				<image src="${imageFile}" border=1 />
 			</div>
-		</script>
-
 	</body>
 </html>
