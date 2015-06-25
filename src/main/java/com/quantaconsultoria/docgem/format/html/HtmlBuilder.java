@@ -5,11 +5,15 @@ import static com.quantaconsultoria.docgem.util.FileUtil.close;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 
+import com.google.gson.Gson;
 import com.quantaconsultoria.docgem.Builder;
 import com.quantaconsultoria.docgem.DocumentationConfiguration;
+import com.quantaconsultoria.docgem.bags.ChapterBag;
+import com.quantaconsultoria.docgem.bags.SectionBag;
 
 
 public class HtmlBuilder implements Builder {
@@ -30,9 +34,32 @@ public class HtmlBuilder implements Builder {
 	}
 
 	@Override
-	public void saveJson(String json) throws IOException {
+	public void saveDocumentationInfo(List<ChapterBag> chapters) throws IOException {
+		convertText(chapters);
+		Gson gson = new Gson();			
+		String json = gson.toJson(chapters);
+		json = "var chapters = "+json+";";	
 		File data_json = new File(configuration.getTarget(),"data.js");			
 		FileUtils.writeStringToFile(data_json, json, configuration.getEncoding());
+	}
+
+	public void convertText(List<ChapterBag> chapters) {
+		for(ChapterBag chapter : chapters) {
+			chapter.setText(convertLineTerminator(chapter.getText()));
+			if(chapter.getSections() != null) {
+				for(SectionBag section : chapter.getSections()) {
+					section.setText(convertLineTerminator(section.getText()));
+				}
+			}
+		}
+		
+	}
+
+	public String convertLineTerminator(String text) {
+		if(text != null) {
+			return text.replaceAll("(\\r\\n|\\n)", "<br />");
+		}
+		return null;
 	}
 
 	@Override

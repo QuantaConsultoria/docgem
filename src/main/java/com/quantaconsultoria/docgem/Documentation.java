@@ -11,7 +11,6 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-import com.google.gson.Gson;
 import com.quantaconsultoria.docgem.annotations.Chapter;
 import com.quantaconsultoria.docgem.annotations.Section;
 import com.quantaconsultoria.docgem.bags.ActionBag;
@@ -53,10 +52,7 @@ public class Documentation {
 	private void buildJson() {
 		try { 
 			List<ChapterBag> sortedChapters = mergeWithXmlChaptersBag();
-			Gson gson = new Gson();			
-			String json = gson.toJson(sortedChapters);
-			json = "var chapters = "+json+";";			
-			builder.saveJson(json);
+			builder.saveDocumentationInfo(sortedChapters);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

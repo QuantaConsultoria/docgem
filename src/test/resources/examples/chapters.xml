@@ -6,7 +6,10 @@
 		<sections>
 			<section >
 				<id>Sessão 1</id>
-				<text>Esta é uma sessao de teste</text>
+				<text>Esta é uma sessao de teste
+				1 - Criar
+				2 - Editar
+				3 - Excluir</text>
 			</section>
 		</sections>
 	</chapter>
