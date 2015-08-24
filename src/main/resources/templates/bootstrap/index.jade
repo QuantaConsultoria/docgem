@@ -1,0 +1,133 @@
+doctype html
+html(lang='pt-BR', ng-app='docgem')
+  head
+    meta(http-equiv="Content-Type", content="text/html; charset=UTF-8")
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="HandheldFriendly", content="true")
+    meta(name="viewport", content="width=device-width, initial-scale=1, user-scalable=no")
+    meta(name="apple-mobile-web-app-capable", content="yes")
+    meta(name="apple-mobile-web-app-status-bar-style", content="black")
+
+    //- Estilos
+    link(rel="icon", type="image/png", href="./bootstrap/images/help_256.png")
+    link(href="./stylesheets/style.css", rel="stylesheet")
+
+    title Manual
+
+    script(src="docgem.js")
+    script(src="angularjs/angular.js" )
+    script(src="angularjs/angular-route.js" )
+    script(src="angularjs/angular-resource.js")
+    script(src="angularjs/angular-sanitize.js")
+    script(src="ng-inspector.js")
+
+
+  body(ng-controller="DocgemCtrl")
+
+    div.book.without-animation.with-summary.font-size-2.font-family-1(data-level="0", data-basepath=".", data-revision="{{revisao}}")
+
+      div.class="book-summary"
+
+        .book-search
+            input.form-control(type="text", placeholder="Escreva para pesquisar")
+
+        ul.summary(ng-repeat-start="item in items")
+          li
+            label {{titel}}
+
+          li.divider
+
+          li.chapter(data-level="item.level" data-path="item.path")
+            a(href="{{item.path}}")
+              i.fa.fa-check
+                <b>{{item.indice}}</b>
+              {item.title}
+
+      .book-body
+        .body-inner
+          .book-header
+            //-- Actions Left --
+            a.btn.pull-left.toggle-summary(href="#", aria-label="Tabela de conteúdos")
+              i.fa.fa-align-justify
+
+            a.btn.pull-left.toggle-search(href="#", aria-label="Pesquise")
+              i.fa.fa-search
+
+            .dropdown.pull-left#font-settings-wrapper
+                a(href="#", aria-label="Configurações de fonte")
+                  i.fa.fa-font
+                .dropdown-menu.font-settings
+                  .dropdown-caret
+                    span.caret-outer
+                    span.caret-inner
+
+                  .buttons
+                    button.button.size-2#reduce-font-size(type="button") A
+                    button.button.size-2#enlarge-font-size(type="button") A
+
+                  .buttons.font-family-list
+                    button.button(type="button", data-font="0") Serif
+                    button.button(type="button", data-font="1") Sans
+
+                  .buttons.color-theme-list
+                    button.button.size-3#color-theme-preview-0(type="button", data-theme="0") Claro
+                    button.button.size-3#color-theme-preview-1(type="button", data-theme="1") Sépia
+                    button.button.size-3#color-theme-preview-2(type="button", data-theme="2") Noite
+
+            //-- Actions Right --
+            .dropdown.pull-right
+                a.btn.toggle-dropdown(href="#" aria-label="Compartilhar")
+                  i.fa.fa-share-alt
+               .dropdown-menu.font-settings.dropdown-left
+                    .dropdown-caret
+                        span.caret-outer
+                        span.caret-inner
+                    .buttons
+                        button.button(type="button", data-sharing="twitter")
+                          |  Compartilhar no Twitter
+                        button.button(type="button", data-sharing="google-plus")
+                          |  Compartilhar no Google
+                        button.button(type="button", data-sharing="facebook")
+                          |  Compartilhar no Facebook
+                        button.button(type="button", data-sharing="weibo")
+                          |  Compartilhar no Weibo
+                        button.button(type="button", data-sharing="instapaper")
+                          |  Compartilhar no Instapaper
+
+
+            a.btn.pull-right.google-plus-sharing-link.sharing-link(href="#", target="_blank", data-sharing="google-plus", aria-label="Google")
+              i.fa.fa-google-plus
+            a.btn.pull-right.facebook-sharing-link.sharing-link(href="#", target="_blank", data-sharing="facebook", aria-label="Facebook")
+              i.fa.fa-facebook
+            a.btn.pull-right.twitter-sharing-link.sharing-link(href="#", target="_blank", data-sharing="twitter", aria-label="Twitter")
+              i.fa.fa-twitter
+
+            //-- Title --
+            h1
+              i.fa.fa-circle-o-notch.fa-spin
+              {{currentItem.title}}
+
+          .page-wrapper(tabindex="-1")
+            .page-inner
+              section.normal#section-
+
+                ng-include(src='moduloUrl()')
+
+
+
+        a.navigation.navigation-prev(href="#", aria-label="Previous page: Garbage Collector")
+          i.fa.fa-angle-left
+
+        a.navigation.navigation-next(href="#", aria-label="Next page: Implementação Paralelo", style="margin-right: 0px;")
+          i.fa.fa-angle-right
+
+
+    script(src="./Introduction _ Imergindo na JVM_files/app.js")
+
+    script.
+      require(["gitbook"], function(gitbook) {
+          var config = {"fontSettings":{"theme":null,"family":"sans","size":2}};
+          gitbook.start(config);
+      });
+
