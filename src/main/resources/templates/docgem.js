@@ -8,28 +8,96 @@ docgem.controller('DocgemCtrl',['$q','$scope','$rootScope', '$location', '$route
     $scope.revisao = new Date();
     $scope.titel = 'Manual';
 
-    $scope.itens = [
+    $scope.chapters = [
     	{
-    		title:'Capítulo 1',
+    		title:'Programa',
     		indice: '1',
-    		path: 'capitulo.html'
+    		path: 'capitulo.html',
+            sections: [
+                {
+                    title:'categoria de Investimento',
+                    indice: '1.1',
+                    path: 'capitulo1.html',
+                    sections: [
+                        {
+                            title:'Criando Categoria de Investimento',
+                            indice: '1.1.1',
+                            path: 'capitulo.html',
+                        },
+                        {
+                            title:'Editando Categoria de Investimento',
+                            indice: '1.1.2',
+                            path: 'capitulo.html',
+                        },
+                        {
+                            title:'Excluindo Categoria de Investimento',
+                            indice: '1.1.2',
+                            path: 'capitulo.html',
+                        }
+                    ]
+                },
+                {
+                    title:'Contrato de Empréstimo',
+                    indice: '1.2',
+                    path: 'capitulo1.html',
+                    sections: [
+                        {
+                            title:'Criando Contrato de Empréstimo',
+                            indice: '1.2.1',
+                            path: 'capitulo.html',
+                        },
+                        {
+                            title:'Editando Contrato de Empréstimo',
+                            indice: '1.2.2',
+                            path: 'capitulo.html',
+                        },
+                        {
+                            title:'Excluindo Contrato de Empréstimo',
+                            indice: '1.2.3',
+                            path: 'capitulo.html',
+                        }
+                    ]
+                }
+            ]
     	},
     	{
-    		title:'Sessão 1',
+    		title:'Financeiro',
     		indice: '2',
-    		path: 'capitulo1.html'
-    	},
-    	{
-    		title:'Sessão 2',
-    		indice: '3',
-    		path: 'capitulo1.html'
-    	},
-    	{
-    		title:'Capítulo 2',
-    		indice: '2',
-    		path: 'capitulo2.html'
+    		path: 'capitulo2.html',
+            sections: [
+                {
+                    title:'Cadastros',
+                    indice: '2.1',
+                    path: 'capitulo1.html',
+                    sections: [
+                        {
+                            title:'Fonte de Recursos',
+                            indice: '2.1.1',
+                            path: 'capitulo2.html',
+                            sections: [
+                                 {
+                                    title:'Criando Fonte de Recurso',
+                                    indice: '2.1.1.1',
+                                    path: 'capitulo.html',
+                                },
+                                {
+                                    title:'Editando Fonte de Recurso',
+                                    indice: '2.1.1.2',
+                                    path: 'capitulo.html',
+                                },
+                                {
+                                    title:'Excluindo Fonte de Recurso',
+                                    indice: '2.1.1.3',
+                                    path: 'capitulo.html',
+                                }
+                            ]
+                        }
+                    ]
+                }
+
+            ]
     	},
     ];
 
-    $scope.currentItem = $scope.itens[0];
+    $scope.currentItem = $scope.chapters[0];
 }]);

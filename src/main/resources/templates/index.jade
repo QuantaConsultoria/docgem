@@ -37,12 +37,19 @@ html(lang='pt-BR', ng-app='docgem')
             label {{titel}}
 
           li.divider
-          .div(ng-repeat="item in itens")
-            li.chapter(data-level="{{item.level}}" data-path="{{item.path}}")
-              a(href="{{item.path}}")
+          .div(ng-repeat="chapter in chapters")
+            li.chapter(data-level="{{chapter.indice}}" data-path="{{chapter.path}}")
+              a(href="{{chapter.path}}")
                 i.fa.fa-check
-                  b {{item.indice}}
-                {{item.title}}
+                  b {{chapter.indice}}
+                {{chapter.title}}
+              ul.articles
+                 .div(ng-repeat="section in chapter.sections")
+                  li.chapter(data-level="{{section.indice}}" data-path="{{section.path}}")
+                    a(href="{{section.path}}")
+                      i.fa.fa-check
+                        b {{section.indice}}
+                      {{section.title}}
 
 
       .book-body
