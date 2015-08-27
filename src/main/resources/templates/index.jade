@@ -15,34 +15,35 @@ html(lang='pt-BR', ng-app='docgem')
 
     title Manual
 
-    script(src="docgem.js")
     script(src="angularjs/angular.js" )
     script(src="angularjs/angular-route.js" )
     script(src="angularjs/angular-resource.js")
     script(src="angularjs/angular-sanitize.js")
     script(src="ng-inspector.js")
+    script(src="docgem.js")
 
 
   body(ng-controller="DocgemCtrl")
 
     div.book.without-animation.with-summary.font-size-2.font-family-1(data-level="0", data-basepath=".", data-revision="{{revisao}}")
 
-      div.class="book-summary"
+      .book-summary
 
         .book-search
             input.form-control(type="text", placeholder="Escreva para pesquisar")
 
-        ul.summary(ng-repeat-start="item in items")
+        ul.summary
           li
             label {{titel}}
 
           li.divider
+          .div(ng-repeat="item in itens")
+            li.chapter(data-level="{{item.level}}" data-path="{{item.path}}")
+              a(href="{{item.path}}")
+                i.fa.fa-check
+                  b {{item.indice}}
+                {{item.title}}
 
-          li.chapter(data-level="item.level" data-path="item.path")
-            a(href="{{item.path}}")
-              i.fa.fa-check
-                <b>{{item.indice}}</b>
-              {item.title}
 
       .book-body
         .body-inner
@@ -55,7 +56,7 @@ html(lang='pt-BR', ng-app='docgem')
               i.fa.fa-search
 
             .dropdown.pull-left#font-settings-wrapper
-                a(href="#", aria-label="Configurações de fonte")
+                a.btn.toggle-dropdown(href="#", aria-label="Configurações de fonte")
                   i.fa.fa-font
                 .dropdown-menu.font-settings
                   .dropdown-caret
@@ -123,11 +124,11 @@ html(lang='pt-BR', ng-app='docgem')
           i.fa.fa-angle-right
 
 
-    script(src="./Introduction _ Imergindo na JVM_files/app.js")
+    //--script(src="./app.js")
 
-    script.
-      require(["gitbook"], function(gitbook) {
-          var config = {"fontSettings":{"theme":null,"family":"sans","size":2}};
-          gitbook.start(config);
-      });
+    //--script.
+    //--  require(["gitbook"], function(gitbook) {
+    //--      var config = {"fontSettings":{"theme":null,"family":"sans","size":2}};
+    //--      gitbook.start(config);
+    //--  });
 

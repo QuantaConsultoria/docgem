@@ -7,15 +7,13 @@ var gulp   = require("gulp"),
     es     = require("event-stream");
 
 var paths  = {
-    stylesheets: "./src/main/resources/stylesheets",
-    templates:   "./src/main/resources",
-    webapp:      "./src/main/resources"
+    stylesheets: "./src/main/resources/templates/stylesheets",
+    templates:   "./src/main/resources/templates"
 };
 
 var targetPaths  = {
     stylesheets: "./target/site/docgem/stylesheets",
-    templates:   "./target/site/docgem",
-    webapp:      "./target/site/docgem"
+    templates:   "./target/site/docgem"
 };
 
 gulp.task("compile:jade", function() {
@@ -23,6 +21,7 @@ gulp.task("compile:jade", function() {
     .pipe(jade())
     .pipe(gulp.dest(paths.templates))
     .pipe(gulp.dest(targetPaths.templates));
+    console.log(paths.templates + "/index.jade");
 
   return es.concat(tmpl);
 });
@@ -57,5 +56,5 @@ gulp.task("watch:jade", function() {
     });
 });
 
-gulp.task("build", ["compile:jade", "compile:stylus"]);
+gulp.task("build", ["compile:jade"]);
 gulp.task("watch", ["build", "watch:stylus", "watch:jade"]);
