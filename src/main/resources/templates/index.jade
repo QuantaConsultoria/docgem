@@ -41,15 +41,17 @@ html(lang='pt-BR', ng-app='docgem')
             li.chapter(data-level="{{chapter.indice}}" data-path="{{chapter.path}}")
               a(href="{{chapter.path}}")
                 i.fa.fa-check
-                  b {{chapter.indice}}
+                b {{chapter.indice}}.
                 {{chapter.title}}
+
               ul.articles
                  .div(ng-repeat="section in chapter.sections")
                   li.chapter(data-level="{{section.indice}}" data-path="{{section.path}}")
                     a(href="{{section.path}}")
                       i.fa.fa-check
-                        b {{section.indice}}
+                      b {{section.indice}}.
                       {{section.title}}
+                  .div(ng-repeat="subSection in section.sections" ng-include="'sections.html'")
 
 
       .book-body
@@ -130,6 +132,14 @@ html(lang='pt-BR', ng-app='docgem')
         a.navigation.navigation-next(href="#", aria-label="Next page: Implementação Paralelo", style="margin-right: 0px;")
           i.fa.fa-angle-right
 
+    script(type="text/ng-template"  id="sections.html")
+      ul.articles
+        li.chapter(data-level="{{section.indice}}" data-path="{{section.path}}")
+          a(href="{{section.path}}")
+            i.fa.fa-check
+            b {{section.indice}}.
+            {{section.title}}
+        div(ng-repeat="section in section.sections" ng-include="'sections.html'")
 
     //--script(src="./app.js")
 
