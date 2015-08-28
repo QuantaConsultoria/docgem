@@ -1,0 +1,21 @@
+.actions {
+  width: 100%;
+}
+.actions .actions-bar {
+  width: 100%;
+}
+.actions .actions-bar .back-action {
+  float: left;
+}
+.actions .actions-bar .next-action {
+  float: right;
+}
+.actions .action-conteiner {
+  width: 100%;
+}
+.actions .action-conteiner label {
+  width: 100%;
+}
+.actions .action-conteiner img {
+  width: 100%;
+}

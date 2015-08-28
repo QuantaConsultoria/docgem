@@ -12,6 +12,7 @@ html(lang='pt-BR', ng-app='docgem')
     //- Estilos
     link(rel="icon", type="image/png", href="./bootstrap/images/help_256.png")
     link(href="./stylesheets/style.css", rel="stylesheet")
+    link(href="./stylesheets/main.css", rel="stylesheet")
 
     title Manual
 
@@ -114,7 +115,7 @@ html(lang='pt-BR', ng-app='docgem')
             .page-inner
               section.normal#section-
 
-                ng-include(src='moduloUrl()')
+                ng-include(src='itemUrl()')
 
 
 
@@ -132,6 +133,16 @@ html(lang='pt-BR', ng-app='docgem')
             b {{section.indice}}.
             {{section.title}}
         div(ng-repeat="section in section.sections" ng-include="'sections.html'")
+
+    script(type="text/ng-template"  id="actions.html")
+      .actions
+        .actions-bar
+          input.back-action(type="button", value="&larr; Voltar", ng-disable="!hasPreviousAction()", ng-click="previousAction()")
+          input.next-action(type="button", value="Avancar &rarr", ng-disable="!hasNextAction()", ng-cick="nextAction()")
+
+        .action-conteiner
+          label {{action.text}}
+          img(src="{{action.imageFile}}", border="1")
 
     //--script(src="./app.js")
 

@@ -21,13 +21,13 @@ gulp.task("compile:jade", function() {
     .pipe(jade())
     .pipe(gulp.dest(paths.templates))
     .pipe(gulp.dest(targetPaths.templates));
-    console.log(paths.templates + "/index.jade");
 
   return es.concat(tmpl);
 });
 
 gulp.task("compile:stylus", function() {
-  var main = gulp.src(stylus())
+  var main = gulp.src(paths.stylesheets + "/**/*.styl")
+    .pipe(stylus())
     .pipe(gulp.dest(paths.stylesheets))
     .pipe(gulp.dest(targetPaths.stylesheets));
 
@@ -56,5 +56,5 @@ gulp.task("watch:jade", function() {
     });
 });
 
-gulp.task("build", ["compile:jade"]);
+gulp.task("build", ["compile:jade", "compile:stylus"]);
 gulp.task("watch", ["build", "watch:stylus", "watch:jade"]);
