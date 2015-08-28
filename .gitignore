@@ -3,3 +3,4 @@
 .classpath
 target
 node_modules
+src/main/resources/templates/index.html

@@ -100,4 +100,18 @@ docgem.controller('DocgemCtrl',['$q','$scope','$rootScope', '$location', '$route
     ];
 
     $scope.currentItem = $scope.chapters[0];
+
+    $scope.selectItem = function(item) {
+        $scope.currentItem = item;
+        item.visited = true;
+    };
+
+    $scope.getVisitedClass = function(item) {
+        if(item.visited) {
+            return 'done';
+        } else {
+            return '';
+        }
+    };
+
 }]);

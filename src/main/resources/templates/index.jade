@@ -38,21 +38,13 @@ html(lang='pt-BR', ng-app='docgem')
 
           li.divider
           .div(ng-repeat="chapter in chapters")
-            li.chapter(data-level="{{chapter.indice}}" data-path="{{chapter.path}}")
-              a(href="{{chapter.path}}")
+            li.chapter(data-level="{{chapter.indice}}", data-path="{{chapter.path}}", ng-class='getVisitedClass(chapter)')
+              a(href="#", ng-click='selectItem(chapter)')
                 i.fa.fa-check
                 b {{chapter.indice}}.
                 {{chapter.title}}
 
-              ul.articles
-                 .div(ng-repeat="section in chapter.sections")
-                  li.chapter(data-level="{{section.indice}}" data-path="{{section.path}}")
-                    a(href="{{section.path}}")
-                      i.fa.fa-check
-                      b {{section.indice}}.
-                      {{section.title}}
-                  .div(ng-repeat="subSection in section.sections" ng-include="'sections.html'")
-
+              .div(ng-repeat="section in chapter.sections" ng-include="'sections.html'")
 
       .book-body
         .body-inner
@@ -134,8 +126,8 @@ html(lang='pt-BR', ng-app='docgem')
 
     script(type="text/ng-template"  id="sections.html")
       ul.articles
-        li.chapter(data-level="{{section.indice}}" data-path="{{section.path}}")
-          a(href="{{section.path}}")
+        li.chapter(data-level="{{section.indice}}" data-path="{{section.path}}", ng-class='getVisitedClass(section)')
+          a(href="#", ng-click='selectItem(section)')
             i.fa.fa-check
             b {{section.indice}}.
             {{section.title}}
