@@ -117,6 +117,15 @@ html(lang='pt-BR', ng-app='docgem')
 
                 ng-include(src='itemUrl()')
 
+                .actions(ng-show="action")
+                  .actions-bar
+                    input.btn.back-action(type="button", value!="&larr; Voltar", ng-disabled="!hasPreviousAction()", ng-click="previousAction()")
+                    input.btn.next-action(type="button", value!="Avancar &rarr;", ng-disabled="!hasNextAction()", ng-click="nextAction()")
+
+                  .action-conteiner
+                    label {{action.text}}
+                    img(src="{{action.imageFile}}", border="1")
+
 
 
         a.navigation.navigation-prev(href="#", aria-label="Previous page: Garbage Collector")
@@ -133,16 +142,6 @@ html(lang='pt-BR', ng-app='docgem')
             b {{section.indice}}.
             {{section.title}}
         div(ng-repeat="section in section.sections" ng-include="'sections.html'")
-
-    script(type="text/ng-template"  id="actions.html")
-      .actions
-        .actions-bar
-          input.back-action(type="button", value="&larr; Voltar", ng-disable="!hasPreviousAction()", ng-click="previousAction()")
-          input.next-action(type="button", value="Avancar &rarr", ng-disable="!hasNextAction()", ng-cick="nextAction()")
-
-        .action-conteiner
-          label {{action.text}}
-          img(src="{{action.imageFile}}", border="1")
 
     //--script(src="./app.js")
 

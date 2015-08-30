@@ -22,6 +22,28 @@ docgem.controller('DocgemCtrl',['$q','$scope','$rootScope', '$location', '$route
                 title:'Criando Categoria de Investimento',
                 indice: '1.1.1',
                 path: 'paginas/capitulo1_1_1.html',
+                actions: [
+                	{
+                		text: 'Click em 1',
+                		imageFile: 'images/1180930.png'
+                	},
+                	{
+                		text: 'Click em 2',
+                		imageFile: 'images/1442739.png'
+                	},
+                	{
+                		text: 'Click em 3',
+                		imageFile: 'images/1842580.png'
+                	},
+                	{
+                		text: 'Click em 4',
+                		imageFile: 'images/3053458.png'
+                	},
+                	{
+                		text: 'Click em 5',
+                		imageFile: 'images/3073320.png'
+                	}
+                ]
               },
               {
                 title:'Editando Categoria de Investimento',
@@ -103,6 +125,11 @@ docgem.controller('DocgemCtrl',['$q','$scope','$rootScope', '$location', '$route
   $scope.selectItem = function(item) {
     $scope.currentItem = item;
     item.visited = true;
+    if($scope.currentItem.actions) {
+    	$scope.action = $scope.currentItem.actions[0];
+    } else {
+    	$scope.action = undefined;
+    }
   };
 
   $scope.getVisitedClass = function(item) {
@@ -130,7 +157,7 @@ docgem.controller('DocgemCtrl',['$q','$scope','$rootScope', '$location', '$route
 
   $scope.hasNextAction = function() {
     if($scope.currentItem.actions && $scope.action) {
-      return $scope.currentItem.actions.indexOf($scope.action) < $scope.currentItem.actions.length;
+      return $scope.currentItem.actions.indexOf($scope.action) < $scope.currentItem.actions.length -1;
     }
     return false;
   };
