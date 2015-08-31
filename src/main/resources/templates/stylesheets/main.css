@@ -1,8 +1,58 @@
 .actions {
   width: 100%;
+  padding-top: 15px;
 }
 .actions .actions-bar {
   width: 100%;
+  padding-bottom: 40px;
+}
+.actions .actions-bar input[type="button"] {
+  font-size: 15px;
+  background-color: #428bca;
+  border-color: #357ebd;
+  -webkit-appearance: button;
+  color: #fff;
+  align-items: flex-start;
+  text-align: center;
+  cursor: default;
+  color: buttontext;
+  padding: 2px 6px 3px;
+  border-image-source: initial;
+  border-image-slice: initial;
+  border-image-width: initial;
+  border-image-outset: initial;
+  border-image-repeat: initial;
+  box-sizing: border-box;
+  -webkit-appearance: push-button;
+  -webkit-user-select: none;
+  white-space: pre;
+}
+.actions .actions-bar input {
+  font-family: inherit;
+  margin: 0;
+  box-sizing: border-box;
+  color: graytext;
+  padding: 1px 6px;
+}
+.actions .actions-bar .btn {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-weight: bold;
+  line-height: 1.428571429;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  -webkit-user-select: none;
+}
+.actions .actions-bar .btn[disabled] {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.65;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 .actions .actions-bar .back-action {
   float: left;
@@ -18,4 +68,5 @@
 }
 .actions .action-conteiner img {
   width: 100%;
+  padding-top: 15px;
 }

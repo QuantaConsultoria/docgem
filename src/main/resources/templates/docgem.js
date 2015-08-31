@@ -25,23 +25,23 @@ docgem.controller('DocgemCtrl',['$q','$scope','$rootScope', '$location', '$route
                 actions: [
                 	{
                 		text: 'Click em 1',
-                		imageFile: 'images/1180930.png'
+                		imageFile: 'paginas/images/1180930.png'
                 	},
                 	{
                 		text: 'Click em 2',
-                		imageFile: 'images/1442739.png'
+                		imageFile: 'paginas/images/1442739.png'
                 	},
                 	{
                 		text: 'Click em 3',
-                		imageFile: 'images/1842580.png'
+                		imageFile: 'paginas/images/1842580.png'
                 	},
                 	{
                 		text: 'Click em 4',
-                		imageFile: 'images/3053458.png'
+                		imageFile: 'paginas/images/3053458.png'
                 	},
                 	{
                 		text: 'Click em 5',
-                		imageFile: 'images/3073320.png'
+                		imageFile: 'paginas/images/3073320.png'
                 	}
                 ]
               },
