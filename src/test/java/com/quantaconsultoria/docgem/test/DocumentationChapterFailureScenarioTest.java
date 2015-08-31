@@ -33,7 +33,7 @@ public class DocumentationChapterFailureScenarioTest {
 		config = new DocumentationConfiguration();
 		config.setTarget("target/site/docgem/");
 		config.setActionsFile("target/site/docgem/action.csv");
-		config.setChaptersXmlPath(this.getClass()
+		config.setDocumentationFile(this.getClass()
 				.getResource("/examples/chapters.xml").getPath());
 		config.setPackagePrefix("com.quantaconsultoria.docgem");
 		Factory factory = new FactoryDefault(config);

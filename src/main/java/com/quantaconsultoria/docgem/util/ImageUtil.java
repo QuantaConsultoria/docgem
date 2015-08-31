@@ -10,14 +10,14 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 
 import com.quantaconsultoria.docgem.DocumentationConfiguration;
 
 public class ImageUtil {
 	
-
-	public static void highlightElement(File image, WebElement elemento) throws IOException {
+	public static void highlightElement(File image, WebElement elemento, Dimension dimension) throws IOException {
 		BufferedImage imagem = ImageIO.read(image);
 		Graphics2D g = imagem.createGraphics();
 		g.setStroke(new BasicStroke(5));
@@ -27,7 +27,7 @@ public class ImageUtil {
 				elemento.getSize().width+2, 
 				elemento.getSize().height+4, 5, 5);
 		
-		ImageIO.write(imagem, "PNG", image);
+		ImageIO.write(imagem.getSubimage(0, 0, dimension.getWidth(), dimension.getHeight()), "PNG", image);
 	}
 	
 	public static String saveScreenshot(File srcImage, DocumentationConfiguration configuration) throws IOException {

@@ -5,24 +5,27 @@ package com.quantaconsultoria.docgem;
 public class DocumentationConfiguration {
 
 	private String target;
+	private String source;
 	private String packagePrefix;
-	private String chaptersXmlPath;
+	private String documentationFile;
 	private String actionsFile;
 	private String encoding;
 
 	public DocumentationConfiguration() {
 		target = "target/docgem/";
 		encoding = "UTF-8";
+		source = ".";
 	}
 
 	public DocumentationConfiguration(String target, String packagePrefix,
-			String chaptersXmlPath, String actionsFile, String encoding) {
+			String documentationFile, String actionsFile, String encoding, String source) {
 		super();
 		this.target = target;
 		this.packagePrefix = packagePrefix;
-		this.chaptersXmlPath = chaptersXmlPath;
+		this.documentationFile = documentationFile;
 		this.actionsFile = actionsFile;
 		this.encoding = encoding;
+		this.source = source;
 	}
 
 	public void setTarget(String target) {
@@ -41,12 +44,12 @@ public class DocumentationConfiguration {
 		this.packagePrefix = packagePrefix;
 	}
 
-	public void setChaptersXmlPath(String path) {
-		this.chaptersXmlPath = path;		
+	public void setDocumentationFile(String path) {
+		this.documentationFile = path;		
 	}
 
-	public String getChaptersXmlPath() {
-		return chaptersXmlPath;
+	public String getDocumentationFile() {
+		return documentationFile;
 	}
 
 	public void setActionsFile(String actionsFile) {
@@ -64,4 +67,13 @@ public class DocumentationConfiguration {
 	public void setEncoding(String encoding) {
 		this.encoding = encoding;
 	}
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
+	}
+	
 }

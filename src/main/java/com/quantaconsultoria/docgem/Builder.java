@@ -1,15 +1,16 @@
 package com.quantaconsultoria.docgem;
 
 import java.io.IOException;
-import java.util.List;
 
-import com.quantaconsultoria.docgem.bags.ChapterBag;
+import com.quantaconsultoria.docgem.bags.DocumentationBag;
 
 
 public interface Builder {
 
-	void saveDocumentationInfo(List<ChapterBag> chapters) throws IOException;
+	void saveDocumentationInfo(DocumentationBag documentation) throws IOException;
 
 	void copyResources();
+
+	void generateFileDescription(String path, DocumentationConfiguration configuration);
 
 }

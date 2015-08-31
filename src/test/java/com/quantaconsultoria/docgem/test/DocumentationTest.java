@@ -38,7 +38,7 @@ public class DocumentationTest {
 		config = new DocumentationConfiguration();
 		config.setTarget("target/site/docgem/");
 		config.setActionsFile("target/site/docgem/action.csv");
-		config.setChaptersXmlPath(this.getClass()
+		config.setDocumentationFile(this.getClass()
 				.getResource("/examples/chapters.xml").getPath());
 		config.setPackagePrefix("com.quantaconsultoria.docgem");
 		Factory factory = new FactoryDefault(config);
@@ -99,10 +99,19 @@ public class DocumentationTest {
 
 	private void checkBuildFiles() throws IOException {
 		checkWithExpected("/templates/index.html", "target/site/docgem/index.html");
-		checkWithExpected("/templates/style.css", "target/site/docgem/style.css");
+		checkWithExpected("/templates/stylesheets/style.css", "target/site/docgem/stylesheets/style.css");
+		checkWithExpected("/templates/stylesheets/main.css", "target/site/docgem/stylesheets/main.css");
+		checkWithExpected("/templates/stylesheets/opensans/300.woff", "target/site/docgem/stylesheets/opensans/300.woff");
+		checkWithExpected("/templates/stylesheets/opensans/400.woff", "target/site/docgem/stylesheets/opensans/400.woff");
+		checkWithExpected("/templates/stylesheets/opensans/700.woff", "target/site/docgem/stylesheets/opensans/700.woff");
+		checkWithExpected("/templates/stylesheets/fontawesome/fontawesome-webfont.woff", "target/site/docgem/stylesheets/fontawesome/fontawesome-webfont.woff");
 		checkWithExpected("/templates/docgem.js", "target/site/docgem/docgem.js");
-		checkWithExpected("/templates/jquery.min.js", "target/site/docgem/jquery.min.js");
-		checkWithExpected("/templates/jquery.template.js", "target/site/docgem/jquery.template.js");
+		checkWithExpected("/templates/angularjs/angular.js", "target/site/docgem/angularjs/angular.js");
+		checkWithExpected("/templates/angularjs/angular-route.js", "target/site/docgem/angularjs/angular-route.js");
+		checkWithExpected("/templates/angularjs/angular-resource.js", "target/site/docgem/angularjs/angular-resource.js");
+		checkWithExpected("/templates/angularjs/angular-sanitize.js", "target/site/docgem/angularjs/angular-sanitize.js");
+		checkWithExpected("/templates/ng-inspector.js", "target/site/docgem/ng-inspector.js");
+		checkWithExpected("/templates/images/help_256.png", "target/site/docgem/images/help_256.png");
 		
 		checkJsonFile();
 	}
@@ -118,8 +127,7 @@ public class DocumentationTest {
 	}
 
 	private void checkWithExpected(String resource, String target) {
-		File expexted = new File(this.getClass().getResource(resource)
-				.getPath());
+		File expexted = new File(this.getClass().getResource(resource).getPath());
 		File actual = new File(target);
 		FileAssert.assertBinaryEquals(expexted, actual);
 	}

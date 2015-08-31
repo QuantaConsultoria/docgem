@@ -2,30 +2,19 @@ package com.quantaconsultoria.docgem.repository.impl;
 
 import static com.quantaconsultoria.docgem.util.FileUtil.close;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.channels.FileLock;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.apache.commons.io.FileUtils;
 
+import com.google.gson.Gson;
 import com.quantaconsultoria.docgem.DocumentationConfiguration;
 import com.quantaconsultoria.docgem.annotations.Chapter;
 import com.quantaconsultoria.docgem.annotations.Section;
-import com.quantaconsultoria.docgem.bags.ActionBag;
-import com.quantaconsultoria.docgem.bags.ChapterBag;
-import com.quantaconsultoria.docgem.bags.SectionBag;
+import com.quantaconsultoria.docgem.bags.*;
 import com.quantaconsultoria.docgem.factory.impl.ChapterBagFactory;
 import com.quantaconsultoria.docgem.repository.InformationRepository;
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
 
 public class InformationRepositoryDefault implements InformationRepository {
 	
@@ -82,24 +71,19 @@ public class InformationRepositoryDefault implements InformationRepository {
 	}
 	
 	@Override
-	@SuppressWarnings("unchecked")
-	public List<ChapterBag> readSortedChapters() throws IOException {
-		InputStream xmlChapters = null;
+	public DocumentationBag readDocumentationInfo() throws IOException {
+		BufferedReader bufferedReader = null;
+		FileReader fielFileReader = null;
+		Gson gson = new Gson(); 
 		try {
-			XStream xstream = new XStream(new DomDriver(configuration.getEncoding()));
-			xstream.alias("chapters", ArrayList.class);
-			xstream.alias("chapter", ChapterBag.class);
-			xstream.alias("section", SectionBag.class);
-			xstream.alias("action", ActionBag.class);
-			
-			xmlChapters = new FileInputStream(new File(configuration.getChaptersXmlPath()));
-			List<ChapterBag> lista = (List<ChapterBag>)xstream.fromXML(xmlChapters);
-			return lista;
-			
+			fielFileReader =  new FileReader(configuration.getDocumentationFile());
+			bufferedReader = new BufferedReader(fielFileReader);
+			return gson.fromJson(bufferedReader, DocumentationBag.class);
 		} catch (FileNotFoundException e) {
-			throw new RuntimeException("Can't read XML file.",e);
+			throw new RuntimeException("Can't read documentation JSON file.",e);
 		} finally {
-			close(xmlChapters);
+			close(bufferedReader);
+			close(fielFileReader);
 		}
 	}
 

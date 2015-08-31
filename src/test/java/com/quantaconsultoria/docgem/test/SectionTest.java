@@ -13,11 +13,11 @@ public class SectionTest {
 		
 		SectionBag sectionBag = new SectionBag();
 		sectionBag.setId("id");
-		sectionBag.setText("Text");
+		sectionBag.setTitle("Text");
 		sectionBag.setChapter(new ChapterBag());
 		
 		Assert.assertEquals(sectionBag.getId(),"id");
-		Assert.assertEquals(sectionBag.getText(),"Text");
+		Assert.assertEquals(sectionBag.getTitle(),"Text");
 		Assert.assertNotNull(sectionBag.getChapter());
 	}
 

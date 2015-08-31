@@ -3,19 +3,14 @@ package com.quantaconsultoria.docgem;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import com.quantaconsultoria.docgem.annotations.Chapter;
 import com.quantaconsultoria.docgem.annotations.Section;
-import com.quantaconsultoria.docgem.bags.ActionBag;
-import com.quantaconsultoria.docgem.bags.ChapterBag;
-import com.quantaconsultoria.docgem.bags.SectionBag;
+import com.quantaconsultoria.docgem.bags.*;
 import com.quantaconsultoria.docgem.factory.Factory;
 import com.quantaconsultoria.docgem.reflections.ReflectionsUtil;
 import com.quantaconsultoria.docgem.repository.InformationRepository;
@@ -28,7 +23,7 @@ public class Documentation {
 	private Builder builder;
 	private InformationRepository repository;
 	private Factory factory;
-	
+
 	
 	protected Documentation() {
 		
@@ -51,33 +46,56 @@ public class Documentation {
 
 	private void buildJson() {
 		try { 
-			List<ChapterBag> sortedChapters = mergeWithXmlChaptersBag();
-			builder.saveDocumentationInfo(sortedChapters);
+			DocumentationBag documentation = mergeLogActionsWithDocumentationInfo();
+			builder.saveDocumentationInfo(documentation);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	private List<ChapterBag> mergeWithXmlChaptersBag() throws IOException {
-		List<ChapterBag> finalChapters = repository.readSortedChapters();
+	private DocumentationBag mergeLogActionsWithDocumentationInfo() throws IOException {
+		DocumentationBag documentation = repository.readDocumentationInfo();
 		Map<String, ChapterBag> chapters = repository.readActions();
 		
-		for(ChapterBag xmlChapter : finalChapters) {
-			ChapterBag docChapter = chapters.get(xmlChapter.getId());
-			if (docChapter!=null) {
-				chapters.remove(xmlChapter.getId());
-				for(SectionBag docSection : docChapter.getSections()) {
-					SectionBag xmlSection = xmlChapter.getSection(docSection.getId());
+		for(ChapterBag chapterFromFile : documentation.getChapters()) {
+			ChapterBag chapterLog = chapters.get(chapterFromFile.getId());
+			if (chapterLog!=null) {
+				chapters.remove(chapterFromFile.getId());
+				for(SectionBag sectionFromFile : chapterLog.getSections()) {
+					SectionBag xmlSection = chapterFromFile.getSection(sectionFromFile.getId());
 					if (xmlSection!=null) {
-						xmlSection.setActions(docSection.getActions());
+						xmlSection.setActions(sectionFromFile.getActions());
 					} else {
-						xmlChapter.getSections().add(docSection);
+						chapterFromFile.getSections().add(sectionFromFile);
 					}
 				}
 			} 
 		}
-		finalChapters.addAll(chapters.values());
-		return finalChapters;
+		documentation.getChapters().addAll(chapters.values());
+		documentation.setDateRevision(new Date());
+		loadChaptersInfo(documentation);
+		return documentation;
+	}
+
+	private void loadChaptersInfo(DocumentationBag documentation) {
+		int i = 1;
+		for(ChapterBag chapterBag : documentation.getChapters()) {
+			chapterBag.setIndice(String.valueOf(i));
+			builder.generateFileDescription(chapterBag.getPath(), factory.getConfiguration());
+			loadSectionInfo(chapterBag.getSections(), String.valueOf(i));
+		}
+	}
+
+	private void loadSectionInfo(List<SectionBag> sections, String indice) {
+		int i = 1;
+		if(sections != null) {
+			for(SectionBag sectionBag : sections) {
+				builder.generateFileDescription(sectionBag.getPath(), factory.getConfiguration());
+				String indiceSection = String.format("%s.%s", indice, i);
+				sectionBag.setIndice(indiceSection);
+				loadSectionInfo(sectionBag.getSections(), indiceSection);
+			}
+		}		
 	}
 
 	public void addAction(String text, WebElement element) {
@@ -93,7 +111,7 @@ public class Documentation {
 				throw new RuntimeException("Can't take a screenshot.");
 			}
 			
-			ImageUtil.highlightElement(imageFile, element);
+			ImageUtil.highlightElement(imageFile, element, driver.manage().window().getSize());
 			String imageFinalFile = ImageUtil.saveScreenshot(imageFile, factory.getConfiguration());
 			ActionBag action = new ActionBag();
 			action.setText(text + getCurrentActionText());

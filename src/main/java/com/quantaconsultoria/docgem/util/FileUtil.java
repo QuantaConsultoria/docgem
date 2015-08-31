@@ -1,8 +1,6 @@
 package com.quantaconsultoria.docgem.util;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.channels.FileLock;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,6 +31,36 @@ public class FileUtil {
 			}
 		} catch (IOException e) {
 			LOG.log(Level.WARNING, "Can't close the InputStream.");
+		}
+	}
+	
+	public static void close(FileReader fielFileReader) {
+		try {
+			if(fielFileReader != null) {
+				fielFileReader.close();
+			}
+		} catch (IOException e) {
+			LOG.log(Level.WARNING, "Can't close the FileReader.");
+		}
+	}
+	
+	public static void close(BufferedReader bufferedReader) {
+		try {
+			if(bufferedReader != null) {
+				bufferedReader.close();
+			}
+		} catch (IOException e) {
+			LOG.log(Level.WARNING, "Can't close the BufferedReader.");
+		}
+	}
+	
+	public static void close(Writer writer) {
+		try {
+			if(writer != null) {
+				writer.close();
+			}
+		} catch (IOException e) {
+			LOG.log(Level.WARNING, "Can't close the Writer.");
 		}
 	}
 

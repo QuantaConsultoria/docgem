@@ -19,9 +19,9 @@ public class InformationRepositoryDefaultTest {
 	public ExpectedException exception = ExpectedException.none();
 	
 	@Test
-	public void readChapterssXmlFail() throws Exception {
+	public void readChaptersJsonFail() throws Exception {
 		exception.expect(RuntimeException.class);
-		exception.expectMessage("Can't read XML file.");
+		exception.expectMessage("Can't read documentation JSON file.");
 		
 		File file = Mockito.mock(File.class);
 		PowerMockito.whenNew(File.class).withAnyArguments().thenReturn(file);
@@ -30,9 +30,9 @@ public class InformationRepositoryDefaultTest {
 		PowerMockito.whenNew(FileInputStream.class).withAnyArguments().thenReturn(inputStream);
 		
 		DocumentationConfiguration config = new DocumentationConfiguration();
-		config.setChaptersXmlPath("");
+		config.setDocumentationFile("");
 		InformationRepository repository = new InformationRepositoryDefault(config);
-		repository.readSortedChapters();
+		repository.readDocumentationInfo();
 	}
 
 }

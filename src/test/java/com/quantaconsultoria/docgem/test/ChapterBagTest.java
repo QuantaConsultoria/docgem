@@ -14,7 +14,7 @@ public class ChapterBagTest {
 	@Test
 	public void mustReturnNullIfEmpity() throws NoSuchMethodException, SecurityException {
 		ChapterBag bag = new ChapterBag();
-		bag.setText("Chapter");
+		bag.setTitle("Chapter");
 		bag.setSections(new ArrayList<SectionBag>());
 		SectionBag sectionBag = new SectionBag();
 		sectionBag.setId("Section test");
@@ -24,9 +24,9 @@ public class ChapterBagTest {
 		Section newSection = this.getClass().getMethod("generateNewSection", null).getAnnotation(Section.class);
 		
 		Assert.assertNull(bag.getSection(""));
-		Assert.assertEquals(bag.getText(), "Chapter");
-		Assert.assertEquals(bag.getSectionBag(section).getId(), "Section test");
-		Assert.assertEquals(bag.getSectionBag(newSection).getId(), "New Section");
+		Assert.assertEquals(bag.getTitle(), "Chapter");
+		Assert.assertEquals(bag.createSectionBag(section).getId(), "Section test");
+		Assert.assertEquals(bag.createSectionBag(newSection).getId(), "New Section");
 	}
 	
 	@Section(id="Section test")
