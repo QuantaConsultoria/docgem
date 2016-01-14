@@ -21,7 +21,7 @@ public class DocumentationConfigurationTest {
 		
 		Assert.assertEquals("/target", configuration2.getTarget());
 		Assert.assertEquals("br.com", configuration2.getPackagePrefix());
-		Assert.assertEquals("/chapters.xml", configuration2.getDocumentationFile());
+		Assert.assertEquals("/chapters.xml", configuration2.getPath());
 		Assert.assertEquals("/actions.csv", configuration2.getActionsFile());
 		Assert.assertEquals("UTF-8", configuration2.getEncoding());
 		Assert.assertEquals("src/main/resources", configuration2.getSource());

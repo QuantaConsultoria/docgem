@@ -1,0 +1,1 @@
+A Rotina de Medição permite o registro da evolução física de um contrato.

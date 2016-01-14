@@ -1,0 +1,1 @@
+Neste capítulo você ira aprender a baixar o relatório de Conciliação de Recursos Antecipados pelo Banco.

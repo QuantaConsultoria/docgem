@@ -1,0 +1,1 @@
+Neste capítulo você irá aprender a preencher os campos necessários para criar um produto.

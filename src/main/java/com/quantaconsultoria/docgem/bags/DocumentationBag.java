@@ -12,7 +12,7 @@ public class DocumentationBag implements Serializable{
 	
 	private String version;
 	
-	private String titel;
+	private String title;
 	
 	private List<ChapterBag> chapters;
 	
@@ -33,12 +33,12 @@ public class DocumentationBag implements Serializable{
 		this.version = version;
 	}
 
-	public String getTitel() {
-		return titel;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setTitel(String titel) {
-		this.titel = titel;
+	public void setTitle(String titel) {
+		this.title = titel;
 	}
 
 	public List<ChapterBag> getChapters() {

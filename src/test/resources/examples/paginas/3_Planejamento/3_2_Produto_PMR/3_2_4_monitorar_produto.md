@@ -1,0 +1,1 @@
+Neste capítulo você irá aprender a criar, editar e excluir monitoramento de um produto.

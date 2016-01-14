@@ -1,0 +1,1 @@
+Neste Capítulo você irá a prender como baixar o relatório de Desmonstrativo de Gastos ou Pagamentos Pendentes de Justificativa ao Banco.

@@ -1,0 +1,1 @@
+Neste capítulo aprenderemos como gerar um relatório de Demonstrativo de Investimentos Acumulados e Memória de Cálculo.

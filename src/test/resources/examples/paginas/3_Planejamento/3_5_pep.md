@@ -1,0 +1,3 @@
+PEP é o planejamento das ações de um contrato, suas atividades, prazo, valor...
+
+Neste capitulo você irá aprender a criar, editar, excluir projetos. Adicionar, baixar e excluir arquivos anexados.

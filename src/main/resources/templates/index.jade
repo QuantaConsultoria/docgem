@@ -13,103 +13,71 @@ html(lang='pt-BR', ng-app='docgem')
     link(rel="icon", type="image/png", href="./bootstrap/images/help_256.png")
     link(href="./stylesheets/style.css", rel="stylesheet")
     link(href="./stylesheets/main.css", rel="stylesheet")
-
-    title Manual
+    link(href="./stylesheets/bootstrap.min.css", rel="stylesheet")
+    link(href="./stylesheets/angular-resizable.min.css", rel="stylesheet")
+    
+    title Manual Bentham
 
     script(src="angularjs/angular.js" )
     script(src="angularjs/angular-route.js" )
     script(src="angularjs/angular-resource.js")
+    script(src="angularjs/angular-resizable.min.js")
     script(src="angularjs/angular-sanitize.js")
     script(src="ng-inspector.js")
     script(src="docgem.js")
-
-
+    script(src="jquery.js")
+    script(src='handlebars.runtime-v4.0.5.js')
+    script(src="bootstrap.min.js")
+    script(src="bootstrap3-typeahead.min.js")
+    script(src="bloodhound.js")
+    script(src="underscore-min.js")
+    
   body(ng-controller="DocgemCtrl")
 
     div.book.without-animation.with-summary.font-size-2.font-family-1(data-level="0", data-basepath=".", data-revision="{{revisao}}")
-
-      .book-summary
-
-        .book-search
-            input.form-control(type="text", placeholder="Escreva para pesquisar")
-
-        ul.summary
-          li
-            label {{titel}}
-
-          li.divider
-          .div(ng-repeat="chapter in chapters")
-            li.chapter(data-level="{{chapter.indice}}", data-path="{{chapter.path}}", ng-class='getVisitedClass(chapter)')
-              a(href="#", ng-click='selectItem(chapter)')
-                i.fa.fa-check
-                b {{chapter.indice}}.
-                {{chapter.title}}
-
-              .div(ng-repeat="section in chapter.sections" ng-include="'sections.html'")
-
-      .book-body
+      .book-summary.container(ng-show='showSummary', resizable, r-directions="['right']", r-width='500')
+          img.bentham-logo(src="http://quantaconsultoria.com:8080/pisf/images/bentham-logo.png")
+          h2.text-center.main-title Manual
+            
+          ul.summary
+            li.chapter(ng-repeat="chapter in chapters")
+              a(href="#", ng-click='selectItem(chapter)', ng-class='currentItem.id == chapter.id ? "text-success" : ""')
+                | {{chapter.title}}
+              
+              ul
+                li(ng-repeat="section in chapter.sections", ng-include="'sections.html'")
+            
+            span(ng-init='applyTreeviewStyle()')  
+              
+      .book-body(ng-class='showSummary ? "withSummary" : "withoutSummary"')
         .body-inner
           .book-header
-            //-- Actions Left --
-            a.btn.pull-left.toggle-summary(href="#", aria-label="Tabela de conteúdos")
-              i.fa.fa-align-justify
-
-            a.btn.pull-left.toggle-search(href="#", aria-label="Pesquise")
-              i.fa.fa-search
-
-            .dropdown.pull-left#font-settings-wrapper
-                a.btn.toggle-dropdown(href="#", aria-label="Configurações de fonte")
-                  i.fa.fa-font
-                .dropdown-menu.font-settings
-                  .dropdown-caret
-                    span.caret-outer
-                    span.caret-inner
-
-                  .buttons
-                    button.button.size-2#reduce-font-size(type="button") A
-                    button.button.size-2#enlarge-font-size(type="button") A
-
-                  .buttons.font-family-list
-                    button.button(type="button", data-font="0") Serif
-                    button.button(type="button", data-font="1") Sans
-
-                  .buttons.color-theme-list
-                    button.button.size-3#color-theme-preview-0(type="button", data-theme="0") Claro
-                    button.button.size-3#color-theme-preview-1(type="button", data-theme="1") Sépia
-                    button.button.size-3#color-theme-preview-2(type="button", data-theme="2") Noite
-
-            //-- Actions Right --
-            .dropdown.pull-right
-                a.btn.toggle-dropdown(href="#" aria-label="Compartilhar")
-                  i.fa.fa-share-alt
-               .dropdown-menu.font-settings.dropdown-left
-                    .dropdown-caret
-                        span.caret-outer
-                        span.caret-inner
-                    .buttons
-                        button.button(type="button", data-sharing="twitter")
-                          |  Compartilhar no Twitter
-                        button.button(type="button", data-sharing="google-plus")
-                          |  Compartilhar no Google
-                        button.button(type="button", data-sharing="facebook")
-                          |  Compartilhar no Facebook
-                        button.button(type="button", data-sharing="weibo")
-                          |  Compartilhar no Weibo
-                        button.button(type="button", data-sharing="instapaper")
-                          |  Compartilhar no Instapaper
-
-
-            a.btn.pull-right.google-plus-sharing-link.sharing-link(href="#", target="_blank", data-sharing="google-plus", aria-label="Google")
-              i.fa.fa-google-plus
-            a.btn.pull-right.facebook-sharing-link.sharing-link(href="#", target="_blank", data-sharing="facebook", aria-label="Facebook")
-              i.fa.fa-facebook
-            a.btn.pull-right.twitter-sharing-link.sharing-link(href="#", target="_blank", data-sharing="twitter", aria-label="Twitter")
-              i.fa.fa-twitter
-
-            //-- Title --
-            h1
-              i.fa.fa-circle-o-notch.fa-spin
-              {{currentItem.title}}
+            
+            .row
+            
+              //-- Actions Left --
+              .col-md-1.col-xs-2
+                a.btn.pull-left.toggle-summary.summary-bar(href="#", aria-label="Tabela de conteúdos", ng-click='toggleSummary()', style='margin-top:8px')
+                  i.fa.fa-align-justify
+              
+              .col-md-9.col-xs-8.text-center(ng-show='!showSearch')
+                //-- Search --
+                h1.text-center.header(style='margin-top:8px')
+                  i.fa.fa-circle-o-notch.fa-spin
+                  | {{currentItem.title}}
+              
+              //-- Actions Right --
+              //-- Title --
+              .col-md-2.col-xs-2(ng-show='!showSearch')
+                a.pull-right.btn.btn-default.toggle-summary.search-button(href="#", aria-label="Pesquisar", ng-click='toggleSearch()',style='margin-top:8px')
+                  i.fa.fa-search
+                      
+              .col-md-11.col-xs-10(ng-show='showSearch')
+                .input-group.pull-right(style='margin-top:8px')
+                  input.form-control.autocomplete(type='text', placeholder='Pesquise')
+                  .input-group-btn
+                    a.btn.btn-default.toggle-summary(href="#", aria-label="Pesquisar", ng-click='toggleSearch()')
+                      i.fa.fa-search
 
           .page-wrapper(tabindex="-1")
             .page-inner
@@ -123,31 +91,19 @@ html(lang='pt-BR', ng-app='docgem')
                     input.btn.next-action(type="button", value!="Avancar &rarr;", ng-disabled="!hasNextAction()", ng-click="nextAction()")
 
                   .action-conteiner
-                    label {{action.text}}
                     img(src="{{action.imageFile}}", border="1")
 
-
-
-        a.navigation.navigation-prev(href="#", aria-label="Previous page: Garbage Collector")
-          i.fa.fa-angle-left
-
-        a.navigation.navigation-next(href="#", aria-label="Next page: Implementação Paralelo", style="margin-right: 0px;")
-          i.fa.fa-angle-right
-
     script(type="text/ng-template"  id="sections.html")
-      ul.articles
-        li.chapter(data-level="{{section.indice}}" data-path="{{section.path}}", ng-class='getVisitedClass(section)')
-          a(href="#", ng-click='selectItem(section)')
-            i.fa.fa-check
-            b {{section.indice}}.
-            {{section.title}}
-        div(ng-repeat="section in section.sections" ng-include="'sections.html'")
-
-    //--script(src="./app.js")
-
+      a(href='#', ng-click='selectItem(section)', ng-class='currentItem === section ? "text-success" : ""') 
+        | {{section.title}}
+      ul(ng-if='section.sections.length > 0')
+        li(ng-repeat="section in section.sections" ng-include="'sections.html'")
+    
+    script(src="treeview.js")
+    
+    //--script(src="./app.js")    
     //--script.
     //--  require(["gitbook"], function(gitbook) {
     //--      var config = {"fontSettings":{"theme":null,"family":"sans","size":2}};
     //--      gitbook.start(config);
     //--  });
-

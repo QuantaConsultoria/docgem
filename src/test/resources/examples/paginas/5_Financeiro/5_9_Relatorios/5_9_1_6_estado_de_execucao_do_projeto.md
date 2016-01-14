@@ -1,0 +1,1 @@
+Neste capítulo você irá aprender a baixar o relatório Estado de Excecução do Projetos e as Memórias de Cálculo.

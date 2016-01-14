@@ -7,7 +7,7 @@ public class DocumentationConfiguration {
 	private String target;
 	private String source;
 	private String packagePrefix;
-	private String documentationFile;
+	private String path;
 	private String actionsFile;
 	private String encoding;
 
@@ -18,11 +18,11 @@ public class DocumentationConfiguration {
 	}
 
 	public DocumentationConfiguration(String target, String packagePrefix,
-			String documentationFile, String actionsFile, String encoding, String source) {
+			String path, String actionsFile, String encoding, String source) {
 		super();
 		this.target = target;
 		this.packagePrefix = packagePrefix;
-		this.documentationFile = documentationFile;
+		this.path = path;
 		this.actionsFile = actionsFile;
 		this.encoding = encoding;
 		this.source = source;
@@ -44,12 +44,12 @@ public class DocumentationConfiguration {
 		this.packagePrefix = packagePrefix;
 	}
 
-	public void setDocumentationFile(String path) {
-		this.documentationFile = path;		
+	public void setPath(String path) {
+		this.path = path;		
 	}
 
-	public String getDocumentationFile() {
-		return documentationFile;
+	public String getPath() {
+		return path;
 	}
 
 	public void setActionsFile(String actionsFile) {

@@ -1,0 +1,4 @@
+O módulo de Programa permite ao usuário realizar os cadastros iniciais do Programa a ser gerenciado pelo <b>Bentham</b>.
+Assim o usuário deverá realizar o cadastro da Categoria de Investimentos e Contrato de Empréstimo. Após isso estará apto para continuar a trabalhar nos demais módulos e após o cadastro das informações de planejamento iniciais poderá nesse módulo visualizar as versões vigentes da Matriz de Investimentos e do Plano de Aquisição, bem como gerar o Resumo do Plano Executivo e verificar o orçamento vigente, controle de correspondências e verificar relatórios pré definidos.
+
+Nos capítulos abaixo explicaremos cada uma dessas funcionalidades.

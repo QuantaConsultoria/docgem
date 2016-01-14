@@ -1,0 +1,1 @@
+O Boletim de Medição é o registro financeiro da evolução física do contrato. Possibilita agrupar os relatórios de medição.

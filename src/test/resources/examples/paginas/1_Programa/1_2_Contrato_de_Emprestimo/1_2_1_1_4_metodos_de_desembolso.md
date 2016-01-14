@@ -1,0 +1,3 @@
+Métodos de desembolso são utilizados para desembolso de recursos do financiamento, a fim de assegurar que o executor disponha de recursos necessários para a execução do Projeto/obra, tais como: adiantamentos; pagamentos diretos; reembolso...
+
+Neste capítulo você irá aprender como adicionar, editar e excluir Métodos de Desembolso.

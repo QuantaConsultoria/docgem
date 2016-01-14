@@ -1,0 +1,1 @@
+A Camada Financeira relaciona-se ao controle das verbas das obras. 

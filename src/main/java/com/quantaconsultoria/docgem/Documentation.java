@@ -8,6 +8,8 @@ import java.util.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+import com.google.common.base.Charsets;
+import com.google.common.io.Files;
 import com.quantaconsultoria.docgem.annotations.Chapter;
 import com.quantaconsultoria.docgem.annotations.Section;
 import com.quantaconsultoria.docgem.bags.*;
@@ -25,18 +27,20 @@ public class Documentation {
 	private Factory factory;
 
 	
-	protected Documentation() {
-		
+	protected Documentation() {		
 	}
 	
 	public Documentation(RemoteWebDriver driver, Factory factory) {
 		this();
 		this.driver = driver;
-		scanner = new DocumentationScanner(factory.getConfiguration());
-		scanner.scan();
-		builder = factory.getBuilder();
-		repository = factory.getRepository();
+		this.scanner = new DocumentationScanner(factory.getConfiguration());
+		this.builder = factory.getBuilder();
+		this.repository = factory.getRepository();
 		this.factory = factory;
+		
+		setupDirectory();
+		scanner.scan();
+		cleanUpActionsLog();
 	}
 
 	public void makeIt() throws IOException {
@@ -62,38 +66,37 @@ public class Documentation {
 			if (chapterLog!=null) {
 				chapters.remove(chapterFromFile.getId());
 				for(SectionBag sectionFromFile : chapterLog.getSections()) {
-					SectionBag xmlSection = chapterFromFile.getSection(sectionFromFile.getId());
-					if (xmlSection!=null) {
-						xmlSection.setActions(sectionFromFile.getActions());
+					SectionBag jsonSection = chapterFromFile.getSection(sectionFromFile.getId());
+					if (jsonSection!=null) {
+						jsonSection.setActions(sectionFromFile.getActions());
 					} else {
 						chapterFromFile.getSections().add(sectionFromFile);
 					}
 				}
 			} 
 		}
+		
 		documentation.getChapters().addAll(chapters.values());
 		documentation.setDateRevision(new Date());
 		loadChaptersInfo(documentation);
 		return documentation;
 	}
 
-	private void loadChaptersInfo(DocumentationBag documentation) {
-		int i = 1;
+	private void loadChaptersInfo(DocumentationBag documentation) throws IOException {
 		for(ChapterBag chapterBag : documentation.getChapters()) {
-			chapterBag.setIndice(String.valueOf(i));
-			builder.generateFileDescription(chapterBag.getPath(), factory.getConfiguration());
-			loadSectionInfo(chapterBag.getSections(), String.valueOf(i));
+			String content = builder.generateFileDescription(chapterBag.getPath(), factory.getConfiguration());
+			chapterBag.setContent(content);
+			loadSectionInfo(chapterBag.getSections(), String.valueOf(chapterBag.getIndice()));
 		}
 	}
 
-	private void loadSectionInfo(List<SectionBag> sections, String indice) {
+	private void loadSectionInfo(List<SectionBag> sections, String indice) throws IOException {
 		int i = 1;
 		if(sections != null) {
 			for(SectionBag sectionBag : sections) {
-				builder.generateFileDescription(sectionBag.getPath(), factory.getConfiguration());
-				String indiceSection = String.format("%s.%s", indice, i);
-				sectionBag.setIndice(indiceSection);
-				loadSectionInfo(sectionBag.getSections(), indiceSection);
+				String content = builder.generateFileDescription(sectionBag.getPath(), factory.getConfiguration());
+				sectionBag.setContent(content);
+				loadSectionInfo(sectionBag.getSections(), sectionBag.getIndice());
 			}
 		}		
 	}
@@ -167,5 +170,19 @@ public class Documentation {
 		}
 		throw new RuntimeException("Don't exist a Chapter on stack");
 	}
+	
+	private void cleanUpActionsLog() {		
+		try{ 
+			File actionFile = new File(factory.getConfiguration().getActionsFile());
+			if(!actionFile.exists())
+				actionFile.createNewFile();
+		} catch(IOException exception) { throw new RuntimeException(exception); }
+	}
+	
+	private void setupDirectory(){
+		File path = new File(factory.getConfiguration().getTarget());
+		if(!path.exists())
+			path.mkdirs();		
+	}	
 
 }

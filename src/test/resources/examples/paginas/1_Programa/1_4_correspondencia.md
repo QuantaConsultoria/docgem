@@ -1,0 +1,1 @@
+Em Correspondências o usuário poderá manter o controle das cartas, ofícios e demais documentos relevantes à comunicação do Programa, podendo assim ter um histórico de toda a comunicação trocada durante o andamento das atividades. 

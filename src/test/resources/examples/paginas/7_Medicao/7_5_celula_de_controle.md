@@ -1,0 +1,1 @@
+A Célula de Controle permite um nível de controle mais específico dentro do contrato, do ponto de vista físico. Possibilitando a criação de uma estrutura que será utilizada para acompanhar as rotinas de medição.

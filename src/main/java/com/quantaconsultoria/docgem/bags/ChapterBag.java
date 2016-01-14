@@ -18,6 +18,8 @@ public class ChapterBag  implements Serializable{
 	
 	private String indice;	
 	
+	private String content;
+	
 	private List<SectionBag> sections;
 	
 	
@@ -60,6 +62,14 @@ public class ChapterBag  implements Serializable{
 	public void setSections(List<SectionBag> sections) {
 		this.sections = sections;
 	}
+	
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String conteudo) {
+		this.content = conteudo;
+	}
 
 	public SectionBag createSectionBag(Section currentSection) {
 		SectionBag section = this.getSection(currentSection.id());
@@ -78,10 +88,19 @@ public class ChapterBag  implements Serializable{
 	
 	public SectionBag getSection(String id) {
 		for(SectionBag section: sections) {
-			if (section.getId().equals(id)) {
+			if (section.getId() != null && section.getId().equals(id)) {
 				return section;
+			} 
+		}
+		
+		for(SectionBag section: sections) {
+			if(section.getSections() != null && !section.getSections().isEmpty()){
+				SectionBag currentSection =  section.getSection(id);
+				if(currentSection != null)
+					return currentSection;
 			}
 		}
+	
 		return null;
 	}
 }

@@ -11,6 +11,6 @@ public interface Builder {
 
 	void copyResources();
 
-	void generateFileDescription(String path, DocumentationConfiguration configuration);
+	String generateFileDescription(String path, DocumentationConfiguration configuration) throws IOException;;
 
 }

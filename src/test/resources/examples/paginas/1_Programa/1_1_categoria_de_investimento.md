@@ -1,0 +1,1 @@
+As categorias de Investimento são as divisões de um Programa que definem como será gasto o dinheiro. Nesse capítulo é possível verificar como criar, editar e excluir uma Categoria de Investimento.

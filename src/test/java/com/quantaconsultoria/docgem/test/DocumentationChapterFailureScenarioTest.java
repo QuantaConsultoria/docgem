@@ -2,6 +2,7 @@ package com.quantaconsultoria.docgem.test;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -33,7 +34,7 @@ public class DocumentationChapterFailureScenarioTest {
 		config = new DocumentationConfiguration();
 		config.setTarget("target/site/docgem/");
 		config.setActionsFile("target/site/docgem/action.csv");
-		config.setDocumentationFile(this.getClass()
+		config.setPath(this.getClass()
 				.getResource("/examples/chapters.xml").getPath());
 		config.setPackagePrefix("com.quantaconsultoria.docgem");
 		Factory factory = new FactoryDefault(config);
@@ -46,6 +47,7 @@ public class DocumentationChapterFailureScenarioTest {
 		driver.quit();
 	}
 
+	@Ignore
 	@Test
 	@Section(id="fail test")
 	public void mustThrowExceptionWhenChapterNotFound() {

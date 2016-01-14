@@ -13,6 +13,7 @@ import org.objectweb.asm.commons.EmptyVisitor;
 import org.objectweb.asm.Attribute;
 
 public class ReflectionsUtil {
+
 	public static Method getMethod(final StackTraceElement stackTraceElement) throws Exception {
 	    final String stackTraceClassName = stackTraceElement.getClassName();
 	    final String stackTraceMethodName = stackTraceElement.getMethodName();

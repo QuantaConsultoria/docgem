@@ -27,7 +27,7 @@ public class ImageUtil {
 				elemento.getSize().width+2, 
 				elemento.getSize().height+4, 5, 5);
 		
-		ImageIO.write(imagem.getSubimage(0, 0, dimension.getWidth(), dimension.getHeight()), "PNG", image);
+		ImageIO.write(imagem.getSubimage(0, 0, imagem.getWidth(), imagem.getHeight()), "PNG", image);
 	}
 	
 	public static String saveScreenshot(File srcImage, DocumentationConfiguration configuration) throws IOException {

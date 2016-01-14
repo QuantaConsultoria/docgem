@@ -1,0 +1,1 @@
+Neste capítulo você irá aprender a gerar relatórios de balancete, diário, balanço patrimonial, plano de contas, razão e DRE.

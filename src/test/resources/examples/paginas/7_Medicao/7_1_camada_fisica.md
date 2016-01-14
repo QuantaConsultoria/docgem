@@ -1,0 +1,1 @@
+A Camada Física pode ser referida ao local onde será realizada as obras. É especificado a região e a cidade para preenchimento.

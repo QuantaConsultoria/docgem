@@ -1,0 +1,1 @@
+Neste capítulo aprenderemos como gerar um relatório de solicitação de desembolso, baixar relatórios de Demonstrativo de Gastos ou Pagamentos Pendentes de Justificativa ao Banco; de Controle de Desembolso e Aporte Locais; de Estado de Execução; de Detalhamento de Compromissos a Cargo do Banco; do Plano Financeiro e de Conciliação de Recursos Antecipados pelo Banco.
