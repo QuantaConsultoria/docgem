@@ -18,7 +18,37 @@
 				<enabled>false</enabled>
 			</releases>
 		</pluginRepository>
+		<pluginRepository>
+			<id>quanta-repository-plugins</id>
+			<name>Quanta Repository Plugins</name>
+			<url>http://homologacao.quantaconsultoria.com:8081/repository/maven-public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</pluginRepository>
 	</pluginRepositories>
+	<repositories>
+		<repository>
+			<id>reflections-repo</id>
+			<name>Reflections Maven2 Repository</name>
+			<url>http://reflections.googlecode.com/svn/repo</url>
+		</repository>
+		<repository>
+			<id>quanta-repository</id>
+			<name>Quanta Repository</name>
+			<layout>default</layout>
+			<url>http://homologacao.quantaconsultoria.com:8081/repository/maven-public/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	<distributionManagement>
+    <repository>
+      <id>quanta-repository</id>
+      <url>http://homologacao.quantaconsultoria.com:8081/repository/quanta-repository</url>
+    </repository>
+  </distributionManagement>
 	<build>
 		<plugins>
 			<plugin>
@@ -62,20 +92,6 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>findbugs-maven-plugin</artifactId>
-				<version>2.5.3-SNAPSHOT</version>
-				<executions>
-					<execution>
-						<id>findbug</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>findbugs</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.5.1</version>
@@ -89,13 +105,6 @@
 			</plugin>
 		</plugins>
 	</build>
-	<repositories>
-		<repository>
-			<id>reflections-repo</id>
-			<name>Reflections Maven2 Repository</name>
-			<url>http://reflections.googlecode.com/svn/repo</url>
-		</repository>
-	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
